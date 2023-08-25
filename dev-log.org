@@ -1,0 +1,38 @@
+* Problem Statement
+  The problem, from the README, is as follows.
+  #+begin_quote
+    For this challenge you will consume the Giant Bomb API to create an application that will allow a
+    user to search games and "rent" them. The application should consist of at least two unique pages
+    (`search` and `checkout`). Your view should display the game thumbnail and title, and the rest is up
+    to you. You can use any language and or framework you'd like.
+  #+end_quote
+
+  We've got some getting-started links to the Giant Bomb API, and an invitation to questions.
+
+  I'd like to have questions, but the problem statement is so open ended that it seems like every
+  question can be answered with =the rest is up to you=.
+
+  That said, let's ponder what we know. We need at least two pages:
+  1. A ~search~ page
+  2. A ~checkout~ page
+
+  The existence of a checkout page means we need to be able to store a collection of games the user
+  would like to "rent".
+
+  Once they've "rented" the game, it's reasonable to then want a list of games the user has rented,
+  with some kind of rental-based data attached.
+
+  Right off the bat I can think of two things I'd like to either avoid doing, or do last,
+  specifically because it's more work and might push things outside of the 3-4 hour time box this
+  project is meant to take, without being specifically asked for. Also, the goal of the project
+  isn't to have a fully functioning "product", but to display my development process.
+* TODO Things to build
+** Search
+*** Search UI
+*** Item display UI
+*** Ability to query the giant bomb api
+** Checkout
+*** Rented items
+*** Checkout cart
+** 
+* TODO Things intentionally not built, and why
