@@ -58,7 +58,7 @@
         api-key @(rf/subscribe [:api-key])]
     [:div
      "API Key: "
-     [:input {:type      "text"
+     [:input {:type      "password"
               :style     {:border "1px solid #CCC"}
               :value     @(rf/subscribe [:api-key])
               :on-change emit}]]))
