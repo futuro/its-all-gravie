@@ -19,13 +19,19 @@
 
 ;; -- Domino 2 - Event Handlers -----------------------------------------------
 
-(rf/reg-event-db              ;; sets up initial application state
- :initialize                 ;; usage:  (dispatch [:initialize])
- (fn [_ _]                   ;; the two parameters are not important here, so use _
-   {:search-term    ""
-    :search-results []
+(rf/reg-event-db
+ :initialize
+ (fn [_ _]
+   {:api-key        ""
     :cart           []
+    :search-term    ""
+    :search-results []
     :rented-items   []}))
+
+(rf/reg-event-db
+ :api-key-change
+ (fn [db [_ new-api-key]]
+   (assoc db :api-key new-api-key)))
 
 (rf/reg-event-db
  :search-term-change
@@ -35,11 +41,27 @@
 ;; -- Domino 4 - Query  -------------------------------------------------------
 
 (rf/reg-sub
+ :api-key
+ (fn [db _]
+   (:api-key db)))
+
+(rf/reg-sub
  :search-term
  (fn [db _]
    (:search-term db)))
 
 ;; -- Domino 5 - View Functions ----------------------------------------------
+
+(defn api-key-input
+  []
+  (let [emit    (fn [e] (rf/dispatch [:api-key-change (event->value e)]))
+        api-key @(rf/subscribe [:api-key])]
+    [:div
+     "API Key: "
+     [:input {:type      "text"
+              :style     {:border "1px solid #CCC"}
+              :value     @(rf/subscribe [:api-key])
+              :on-change emit}]]))
 
 (defn search-input
   []
@@ -56,6 +78,7 @@
   []
   [:div
    [:h1 "BlockBuster Forever"]
+   [api-key-input]
    [search-input]])
 
 ;; -- Entry Point -------------------------------------------------------------
