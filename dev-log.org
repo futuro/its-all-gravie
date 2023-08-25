@@ -34,5 +34,8 @@
 ** Checkout
 *** Rented items
 *** Checkout cart
-** 
+** App State
+*** An API key
+*** The current search
+*** The returned search results
 * TODO Things intentionally not built, and why
