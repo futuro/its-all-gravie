@@ -26,6 +26,20 @@
   specifically because it's more work and might push things outside of the 3-4 hour time box this
   project is meant to take, without being specifically asked for. Also, the goal of the project
   isn't to have a fully functioning "product", but to display my development process.
+* Dev process
+** High level
+   At a high level, I'd like to achieve the following goals:
+   - Use re-frame, as that's what's in use at Gravie
+   - Spend as little time on boilerplate as possible
+   - First achieve the explicitly asked for goals, then add flourish.
+** Challenges
+   The primary challenge here is that this problem is to build a frontend app, and the majority of
+   my experience is with backend, so I need to learn many new things, and learn them quickly.
+
+   Given this, it will be challenging to know, ahead of time, the order in which to build things, so
+   I will likely wander down various dead ends or false starts.
+** Beginnings
+   I'd like to minimize the amount of time I spend writing bo
 * TODO Things to build
 ** Search
 *** Search UI
