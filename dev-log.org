@@ -30,7 +30,7 @@
 ** High level
    At a high level, I'd like to achieve the following goals:
    - Use re-frame, as that's what's in use at Gravie
-   - Spend as little time on boilerplate as possible
+   - Spend as little time on getting set up, and on boilerplate, as possible
    - First achieve the explicitly asked for goals, then add flourish.
 ** Challenges
    The primary challenge here is that this problem is to build a frontend app, and the majority of
@@ -39,7 +39,44 @@
    Given this, it will be challenging to know, ahead of time, the order in which to build things, so
    I will likely wander down various dead ends or false starts.
 ** Beginnings
-   I'd like to minimize the amount of time I spend writing bo
+   Since I'm trying to reduce the time I spend getting set up, and on boilerplate, I'm going to
+   begin by using the "simple" example app in the re-frame repo, found [[https://github.com/day8/re-frame/blob/b33956ef15f09bf6200fc0f97e9cb1db87e3a3cc/examples/simple/README.md][here]]. This should give me all
+   of the base files I need -- the ~deps.edn~, the ~shadow-cljs.edn~, and so on -- to have a running
+   app, and get me to writing the actual app code.
+
+   One change I've made to this initial ~deps.edn~ file is to include the deps for the
+   ~re-frame-10x~ library, as I'd like some more debugging insight.
+** Data model
+   Now that we've got a basic app running, and before I start writing frontend code, I want to take
+   an initial go at designing a data model. This is, currently ([2023-08-25 Fri]), being built on a
+   plane, so I'm going to wait to design the data model for Giant Bomb results until I have wifi
+   again.
+
+   With that said, here's what we know we need to store somehow
+   - A search term
+   - The search results
+   - The items they'd like to rent
+   - The items they're currently renting
+
+   I'm going to start with the following keys in the app-db:
+   - ~search-term~ :: the current search term, a string
+   - ~search-results~ :: a collection of results returned by the Giant Bomb API, likely a vector of
+     maps, though that could change
+   - ~cart~ :: a collection of games that the user wants to rent, where each item in the collection
+     has the same structure as the items in ~search-results~
+   - ~rented-items~ :: a collection of games that the user is currently renting, sharing a similar
+     structure to the ~search-results~ and ~cart~ collections, though likely with a couple extra
+     fields to represent things like a due date.
+   - ~api-key~ :: The API key to use for making Giant Bomb API requests. There are various ways to
+     handle authenticating calls with Giant Bomb -- have users as part of the data model, and users
+     have api-keys, or work with Giant Bomb to get an API key for our app and every call is
+     authenticated with that, and so on -- but for simplicity's sake, and because this repo is
+     public, I'm going to have an input field that user's will paste their API key into, and which
+     goes away on page reload. That way I don't have to worry about leaking my own API key.
+** A basic search
+   Now that the initial data model is sorted out, we can create our search and API key inputs. The
+   search won't make requests, per se, since I'm on an airplane, but then we've got something on the
+   page.
 * TODO Questions
 ** TODO Can the "pages" be modals?
   Even though the problem seems open ended enough to obviate any questions, I realized that this
