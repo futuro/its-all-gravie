@@ -40,6 +40,17 @@
    I will likely wander down various dead ends or false starts.
 ** Beginnings
    I'd like to minimize the amount of time I spend writing bo
+* TODO Questions
+** TODO Can the "pages" be modals?
+  Even though the problem seems open ended enough to obviate any questions, I realized that this
+  could be a UX choice, and thus a question.
+** TODO Should each page be linkable?
+   I'm envisioning this as a single page app, given we're using React under the hood. As such,
+   there's a question for whether we should be able to link to each modal or page of the SPA, or
+   just force users to load up the first page every time.
+
+   My personal preference is to support linking into different "pages", though I don't know exactly
+   how right now.
 * TODO Things to build
 ** Search
 *** Search UI
