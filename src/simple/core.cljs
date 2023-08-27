@@ -8,7 +8,10 @@
   ground."
   (:require [reagent.dom :as rdom]
             [re-frame.core :as rf]
-            [day8.re-frame.tracing :refer-macros [fn-traced]]))
+            ;; Needed for the `:fetch` effect handler
+            [superstructor.re-frame.fetch-fx]
+            [day8.re-frame.tracing :refer-macros [fn-traced]]
+            [clojure.string :as str]))
 
 ;; Helpers
 
