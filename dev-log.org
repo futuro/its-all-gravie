@@ -110,6 +110,17 @@
     as the newer way of doing this, and which leverages Promises, which are apparently now =the
     prefered way to do asynchronous operations in JavaScript=. My (somewhat limited) experience with
     the JS world tells me to follow the herd as much as possible, so I'll go with Fetch for now.
+*** A CORS pitfall
+    So it turns out that both Fetch and XHRIO require CORS to be enabled if javascript is to be
+    allowed access to the results from cross-site requests, which is something I've just learned.
+
+    Furthermore, after digging around, and inspecting the network tab, it looks like GiantBomb does
+    not support CORS.
+
+    As such, we'll have to implement a proxying backend to leverage the same-site origin security,
+    thus making the API call results available to our CLJS code, and bypassing CORS.
+
+    I wonder what the quickest way to do this is...
 ** TODO Checkout
    Once we've got search functionality working, and can see/select games we'd like to rent, we'll
    have enough data to support building a checkout page.
