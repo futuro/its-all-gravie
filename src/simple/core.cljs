@@ -41,6 +41,50 @@
  (fn [db [_ new-search-term]]
    (assoc db :search-term new-search-term)))
 
+(rf/reg-event-fx
+ :successful-search
+ (fn [{db :db} [_ response]]
+   {:fx [[:log response]]
+    :db (assoc db :search-results (:body response))}))
+
+(rf/reg-event-fx
+ :failed-search
+ (fn-traced [_ [_ response]]
+   {:fx [[:log response]]}))
+
+(rf/reg-event-fx
+ :search
+ (fn-traced [{db :db} _]
+   ;; TODO: The implicit encoding of knowledge of where the search-term and api-key live in the DB
+   ;; feels like the wrong approach, at least when viewed in a similar like as to why we don't pull
+   ;; things right from the DB in a view, but instead subscribe to a previously registered Query.
+   ;; That said, if we subscribe to those Queries, they'll get rerun when the key or term are
+   ;; updated, which would then trigger this to rerun, I believe, and we don't want that.
+   ;;
+   ;; Hmm...gonna have to ponder this some more later.
+   (let [{:keys [api-key
+                 search-term]} db
+         url                   "https://www.giantbomb.com/api/search/"]
+     {:fx [[:fetch {:method                 :get
+                    :url                    url
+                    :mode                   :no-cors
+                    :timeout                5000
+                    :request-content-type   :json
+                    :response-content-types {#"application/.*json" :json}
+                    :params                 {:api_key api-key
+                                             :format "json"
+                                             :resources "game"
+                                             :query  search-term}
+                    :on-success             [:successful-search]
+                    :on-failure             [:failed-search]}]]})))
+
+;; -- Domino 3 - Events -------------------------------------------------------
+
+(rf/reg-fx
+ :log
+ (fn [value]
+   (js/console.log value)))
+
 ;; -- Domino 4 - Query  -------------------------------------------------------
 
 (rf/reg-sub
@@ -74,8 +118,9 @@
      "Search Term: "
      [:input {:type  "text"
               :style {:border "1px solid #CCC"}
-              :value @(rf/subscribe [:search-term])
-              :on-change emit}]]))
+              :value search-term
+              :on-change emit
+              :on-key-down #(when (= (.-which %) 13) (rf/dispatch [:search]))}]]))
 
 (defn ui
   []
