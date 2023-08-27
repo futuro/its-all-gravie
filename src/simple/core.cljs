@@ -34,7 +34,7 @@
 (rf/reg-event-db
  :api-key-change
  (fn [db [_ new-api-key]]
-   (assoc db :api-key new-api-key)))
+   (assoc db :api-key (str/trim new-api-key))))
 
 (rf/reg-event-db
  :search-term-change
