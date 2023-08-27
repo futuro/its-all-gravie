@@ -46,6 +46,12 @@
 
    One change I've made to this initial ~deps.edn~ file is to include the deps for the
    ~re-frame-10x~ library, as I'd like some more debugging insight.
+** Why re-frame?
+   I don't know any frontend framework well enough to get something spun up quickly, so since I'll
+   need to learn something new, I'm choosing re-frame because:
+   1. I've been interested in re-frame for a while
+   2. Gravie uses re-frame, so, presuming I get hired, learning it now will help jumpstart my first
+      couple weeks.
 ** Data model
    Now that we've got a basic app running, and before I start writing frontend code, I want to take
    an initial go at designing a data model. This is, currently ([2023-08-25 Fri]), being built on a
@@ -73,10 +79,102 @@
      authenticated with that, and so on -- but for simplicity's sake, and because this repo is
      public, I'm going to have an input field that user's will paste their API key into, and which
      goes away on page reload. That way I don't have to worry about leaking my own API key.
-** A basic search
+** DONE A basic search input field
    Now that the initial data model is sorted out, we can create our search and API key inputs. The
    search won't make requests, per se, since I'm on an airplane, but then we've got something on the
    page.
+** DONE An API key input field
+   This was essentially the same as the basic search input field.
+** TODO hitting the Giant Bomb api
+   Now that we've got a basic search input field, and an api key input field, let's hit the Giant
+   Bomb api.
+
+   First up, GB supports 200 requests/hour/resource, which could make initial development tricky,
+   since I wouldn't be surprised if I made more search requests than that.
+
+   From this, I'm going to delay (never build?) auto-complete support, since I don't want to blow my
+   API limit.
+
+   That said, let's wire in the GB api, and to make our remote requests with effects handlers, let's
+   use ~re-frame-fetch-fx~.
+
+   Aside from needing to add this as a dependency, we'll also need the following things for the
+   search to work:
+   - Getting the API key from the DB for the request
+   - Putting the query string into the request
+   - Putting the search results into the DB afterwards
+   - Some kind of error handling
+*** Why re-frame-fetch-fx over re-frame-http-fx?
+    These both do the =fetch a remote resource= job, so how to pick? The answer is =I don't know,
+    let's ask the internet=, which lead me to [[https://stackoverflow.com/questions/52261136/difference-between-fetch-ajax-and-xhr][this stackoverflow question]], which identified ~Fetch~
+    as the newer way of doing this, and which leverages Promises, which are apparently now =the
+    prefered way to do asynchronous operations in JavaScript=. My (somewhat limited) experience with
+    the JS world tells me to follow the herd as much as possible, so I'll go with Fetch for now.
+** TODO Checkout
+   Once we've got search functionality working, and can see/select games we'd like to rent, we'll
+   have enough data to support building a checkout page.
+* Re-frame learnings
+  This section covers some of the things I've learned while going over [[https://day8.github.io/re-frame/re-frame/][the re-frame tutorial]],
+  specifically things that strike me as important, and which I'm unlikely to see discussed over and
+  over again. So the "Dominoes" won't show up, per se, because they're discussed or mentioned many
+  times, and thus I'm unlikely to forget them.
+** Don't compute data in a view function
+   View functions should get all of the data they need from a subscription, and not do any further
+   processing on that data.
+
+   This allows for easier testing of code, as well as deduplication of work, since re-frame will
+   reuse nodes in the signal graph, thus only doing the computation once, no matter how many views
+   leverage it.
+
+   F.e., instead of converting a ~js/Date.~ object into a string in a view function, there should be
+   a subscription that returns the datetime as a string already. See [[https://day8.github.io/re-frame/correcting-a-wrong/][this doc]] for more details.
+** Don't cause effects in your event handlers
+   Causing side-effects in your ~reg-event-db~ or ~reg-event-fx~ event handlers takes away some of
+   the super powers of the effect-driven nature of re-frame, making things harder to debug.
+
+   Instead of causing effects in event handlers -- such as HTTP calls, event dispatching, or
+   LocalStorage accessing -- use ~reg-event-fx~ to return a description of effects that need to be
+   dispatched later by the =effect= handlers (Domino 3, in re-frame parlance).
+
+   That way we isolate the side-effects to specific function definitions later, making them easier
+   to test and debug, and also get stronger debugging abilities because a core part of our event
+   system is the generation and passing of pure data around.
+
+   Effect handlers are registered with ~reg-fx~.
+** Some advice on Effect Handlers
+   From [[https://day8.github.io/re-frame/Effects/][this doc.]]
+
+   #+begin_quote
+     A word of advice - make them as simple as possible, and then simplify them further. You don't want
+     them containing any fancy logic.
+
+     Why? Well, because they are all side-effecty they will be a pain to test rigorously. And the
+     combination of fancy logic and limited testing always ends in tears. If not now, later.
+   #+end_quote
+
+   I really dig this advice, and it seems worth meditating on.
+
+   Another piece of advice, which I also like:
+   #+begin_quote
+   A second word of advice - when you create an effect handler, you also have to design (and
+   document!) the structure of the value expected.
+
+   When you do, realise that you are designing a nano DSL for value and try to make that design
+   simple too. If you resist being terse and smart, and instead, favor slightly verbose and obvious,
+   your future self will thank you. Create as little cognitive overhead as possible for the eventual
+   readers of your effectful code.
+   #+end_quote
+
+   I've been wondering about the [[*Don't compute data in a view function][Don't compute data in a view function]] learning, and thinking about
+   my time working with Clara Rules, and what I learned about spooky action at a distance in
+   signal-graph systems, wondering how to alert a dev when a change they make to a subscription or
+   event/effect handler breaks an assumption held by some part of the system which they were
+   ignorant of. Schemas or specs seems like one piece of the puzzle there, so I like this call out.
+** Use ~inject-cofx~ interceptor to add needed data to event handler
+   Since we want our event handlers to be pure, we can add a ~inject-cofx~ interceptor to our event
+   handler -- specifically with ~reg-event-fx~, since ~reg-event-db~ doesn't pass the coeffects to the
+   specified function -- who's first argument is an id for a function registered with ~reg-cofx~,
+   and that function will ~assoc~ into the coeffects whatever data is relevant.
 * TODO Questions
 ** TODO Can the "pages" be modals?
   Even though the problem seems open ended enough to obviate any questions, I realized that this
@@ -88,6 +186,12 @@
 
    My personal preference is to support linking into different "pages", though I don't know exactly
    how right now.
+** TODO How much is enough?
+   Another good question to ask, as a method of finding a balance between getting something built
+   quickly and accurately showcasing my abilities is to reach out at different points of
+   functionality to ask "is this enough?". As for what constitutes =enough=, I think a good way to
+   phrase the question could be "does the current functionality inspire confidence, or are there
+   things that are missing which you would like to see?".
 * TODO Things to build
 ** Search
 *** Search UI
@@ -101,3 +205,4 @@
 *** The current search
 *** The returned search results
 * TODO Things intentionally not built, and why
+** TODO Persistence
