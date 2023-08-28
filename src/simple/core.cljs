@@ -78,7 +78,7 @@
                     :on-success             [:successful-search]
                     :on-failure             [:failed-search]}]]})))
 
-;; -- Domino 3 - Events -------------------------------------------------------
+;; -- Domino 3 - Effects -------------------------------------------------------
 
 (rf/reg-fx
  :log
