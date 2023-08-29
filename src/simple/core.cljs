@@ -54,7 +54,9 @@
 
 (rf/reg-event-fx
  :search
- (fn-traced [{db :db} _]
+ [(rf/inject-cofx ::server-hostname)]
+ (fn-traced [{db :db
+              hostname ::server-hostname} _]
    ;; TODO: The implicit encoding of knowledge of where the search-term and api-key live in the DB
    ;; feels like the wrong approach, at least when viewed in a similar like as to why we don't pull
    ;; things right from the DB in a view, but instead subscribe to a previously registered Query.
@@ -64,11 +66,7 @@
    ;; Hmm...gonna have to ponder this some more later.
    (let [{:keys [api-key
                  search-term]} db
-         ;; This is a hacky method of getting our hostname in both dev and prod environments. It
-         ;; feels hacky, and I'd rather have a config variable, but that would require injecting the
-         ;; hostname during build time and I don't really want to do that at the moment, preferring
-         ;; instead to get a proof of concept up and running.
-         url                   (str (.-location js/window) "api/search")]
+         url                   (str hostname "api/search")]
      {:fx [[:fetch {:method                 :get
                     :url                    url
                     :timeout                5000
@@ -87,6 +85,16 @@
  :log
  (fn [value]
    (js/console.log value)))
+
+(rf/reg-cofx
+ ::server-hostname
+ ;; This feels like a hacky method of getting our hostname in both dev and prod environments. It
+ ;; feels hacky, and I'd rather have a config variable, but that would require injecting the
+ ;; hostname during build time and I don't really want to do that at the moment, preferring instead
+ ;; to get a proof of concept up and running.
+ (fn insert-server-hostname
+   [cofx]
+   (assoc cofx ::server-hostname (.-location js/window))))
 
 ;; -- Domino 4 - Query  -------------------------------------------------------
 
