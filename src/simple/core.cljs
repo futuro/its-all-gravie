@@ -64,7 +64,11 @@
    ;; Hmm...gonna have to ponder this some more later.
    (let [{:keys [api-key
                  search-term]} db
-         url                   "http://127.0.0.1:8788/api/search"]
+         ;; This is a hacky method of getting our hostname in both dev and prod environments. It
+         ;; feels hacky, and I'd rather have a config variable, but that would require injecting the
+         ;; hostname during build time and I don't really want to do that at the moment, preferring
+         ;; instead to get a proof of concept up and running.
+         url                   (str (.-location js/window) "api/search")]
      {:fx [[:fetch {:method                 :get
                     :url                    url
                     :timeout                5000
