@@ -121,6 +121,40 @@
     thus making the API call results available to our CLJS code, and bypassing CORS.
 
     I wonder what the quickest way to do this is...
+*** In-CORS-igible
+    I had originally wanted to make a frontend only project, hoping to avoid spending time on doing
+    anything with the backend. This original focus, when met with the CORS issue, lead me to spend
+    some time trying to build, or find, a transparent proxy that could take a request for localhost
+    and forward it to giantbomb.
+
+    First I tried out using CLJS and Node's ~HTTP(S)~ modules, but wasn't particularly taken by the
+    things one has to do to handle requests. There were some node packages that maybe could have
+    done this, but I neither wanted to trust the code blindly, nor audit it before use.
+
+    So I went to see if there was an existing OSS project that was doing this, and I spent a little
+    time experimenting with ~tinyproxy~ and ~socat~. Tinyproxy had some glitches, and also couldn't
+    reverse proxy to HTTPS URLs, and socat was super promising, but I couldn't quickly figure out
+    how to set the ~Host~ header, which is necessary for the Fastly routing that GiantBomb uses.
+
+    I then had a realization that building a "proxy" for these requests is just building a backend
+    server, and that, blinded as I was to try to only write frontend code, I'd gone off on a wild
+    goose chase.
+
+    So the simplest thing remains to be writing a dead simple backend server in Clojure to handle
+    all requests that need to hit giantbomb.
+*** A backend
+    A barebones backend needs:
+    - A server to accept requests from the network
+    - A handler to handle those requests
+    - Routing, depending on what we're doing
+    - An agreed upon data schema between the FE and BE
+
+    I'm going to skip things like a db and authz for the time being, as this isn't a real product
+    and we don't have "users", or other persisted, sensitive data.
+
+    I might also skip serving the built HTML from the server, as shadow-cljs does that for me atm.
+    Ultimately, were I to serve this anywhere, I'd like to give Cloudflare Pages, and Cloudflare
+    Pages Functions, a go, to minimize the infrastructure I need to build.
 ** TODO Checkout
    Once we've got search functionality working, and can see/select games we'd like to rent, we'll
    have enough data to support building a checkout page.
