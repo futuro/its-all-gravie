@@ -10,7 +10,8 @@
     "karma-chrome-launcher": "3.1.0",
     "karma-cljs-test": "0.1.0",
     "karma-junit-reporter": "2.0.1",
-    "shadow-cljs": "2.15.12"
+    "shadow-cljs": "2.15.12",
+    "wrangler": "^3.6.0"
   },
   "dependencies": {
     "karma-puppeteer-launcher": "^1.0.4",
