@@ -64,10 +64,9 @@
    ;; Hmm...gonna have to ponder this some more later.
    (let [{:keys [api-key
                  search-term]} db
-         url                   "http://localhost:8888/api/search"]
+         url                   "http://127.0.0.1:8788/api/search"]
      {:fx [[:fetch {:method                 :get
                     :url                    url
-                    :mode                   :no-cors
                     :timeout                5000
                     :request-content-type   :json
                     :response-content-types {#"application/.*json" :json}
