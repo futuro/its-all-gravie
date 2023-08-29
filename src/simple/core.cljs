@@ -64,7 +64,7 @@
    ;; Hmm...gonna have to ponder this some more later.
    (let [{:keys [api-key
                  search-term]} db
-         url                   "https://www.giantbomb.com/api/search/"]
+         url                   "http://localhost:8888/api/search"]
      {:fx [[:fetch {:method                 :get
                     :url                    url
                     :mode                   :no-cors
