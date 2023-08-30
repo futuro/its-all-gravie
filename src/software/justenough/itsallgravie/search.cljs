@@ -30,13 +30,24 @@
  [(rf/inject-cofx ::utils/server-hostname)]
  (fn-traced [{db :db
               hostname ::utils/server-hostname} _]
-   ;; TODO: The implicit encoding of knowledge of where the search-term and api-key live in the DB
-   ;; feels like the wrong approach, at least when viewed in a similar like as to why we don't pull
-   ;; things right from the DB in a view, but instead subscribe to a previously registered Query.
-   ;; That said, if we subscribe to those Queries, they'll get rerun when the key or term are
-   ;; updated, which would then trigger this to rerun, I believe, and we don't want that.
+   ;; The implicit encoding of the locations for the api key and the search term feels wrong,
+   ;; similar to the reasons we don't want to do that in view functions. My initial thought was to
+   ;; create cofx handlers that would subscribe to the various values we need from the DB, since
+   ;; those subscriptions already exist, but this doesn't mix well with the way that data flows
+   ;; through a re-frame app (and is explicitly suggested against by
+   ;; https://day8.github.io/re-frame/FAQs/UseASubscriptionInAnEventHandler/). After looking at one
+   ;; library that would do
+   ;; this (https://github.com/den1k/re-frame-utils/blob/master/src/vimsical/re_frame/cofx/inject.cljc)
+   ;; and reviewing that docstring, it sounds like going down this route might create hidden
+   ;; pitfalls for ourselves, and the more robust approach is to write functions that extract the
+   ;; values from the DB and use those functions in event handlers, thus abstracting away from the
+   ;; specifics.
    ;;
-   ;; Hmm...gonna have to ponder this some more later.
+   ;; Aside from writing another function, it sounds like the idiomatic approach is to do what we're
+   ;; doing below, or, at most, write a cofx handler that would do the same, except as an interceptor.
+   ;;
+   ;; My intuition tells me that the extra work involved in doing all of this isn't worth it yet, so
+   ;; I'm going to leave this as-is, even though it has a "smell" to it.
    (let [{:keys [api-key
                  search-term]} db
          url                   (str hostname "api/search")]
