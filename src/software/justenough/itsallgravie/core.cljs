@@ -10,6 +10,7 @@
             [re-frame.core :as rf]
             ;; Needed for the `:fetch` effect handler
             [superstructor.re-frame.fetch-fx]
+            [software.justenough.itsallgravie.api-key :as api-key]
             [day8.re-frame.tracing :refer-macros [fn-traced]]
             [clojure.string :as str]))
 
@@ -30,11 +31,6 @@
     :search-term    ""
     :search-results []
     :rented-items   []}))
-
-(rf/reg-event-db
- :api-key-change
- (fn [db [_ new-api-key]]
-   (assoc db :api-key (str/trim new-api-key))))
 
 (rf/reg-event-db
  :search-term-change
@@ -99,27 +95,11 @@
 ;; -- Domino 4 - Query  -------------------------------------------------------
 
 (rf/reg-sub
- :api-key
- (fn [db _]
-   (:api-key db)))
-
-(rf/reg-sub
  :search-term
  (fn [db _]
    (:search-term db)))
 
 ;; -- Domino 5 - View Functions ----------------------------------------------
-
-(defn api-key-input
-  []
-  (let [emit    (fn [e] (rf/dispatch [:api-key-change (event->value e)]))
-        api-key @(rf/subscribe [:api-key])]
-    [:div
-     "API Key: "
-     [:input {:type      "password"
-              :style     {:border "1px solid #CCC"}
-              :value     @(rf/subscribe [:api-key])
-              :on-change emit}]]))
 
 (defn search-input
   []
@@ -137,7 +117,7 @@
   []
   [:div
    [:h1 "BlockBuster Forever"]
-   [api-key-input]
+   [api-key/input]
    [search-input]])
 
 ;; -- Entry Point -------------------------------------------------------------
