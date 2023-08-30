@@ -1,4 +1,4 @@
-(ns simple.core
+(ns software.justenough.itsallgravie.core
   "This namespace was originally copied from the re-frame \"simple\" example app, specifically this
   file:
   https://github.com/day8/re-frame/blob/b33956ef15f09bf6200fc0f97e9cb1db87e3a3cc/examples/simple/src/simple/core.cljs

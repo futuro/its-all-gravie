@@ -17,7 +17,7 @@
  :builds {:client {:target     :browser
                    :output-dir "resources/public/js"
                    :modules    {:client
-                                {:init-fn simple.core/run}}
+                                {:init-fn software.justenough.itsallgravie.core/run}}
                    :devtools   {:preloads [day8.re-frame-10x.preload
                                            devtools.preload]}
                    :dev        {:compiler-options
