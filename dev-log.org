@@ -249,5 +249,14 @@
 *** An API key
 *** The current search
 *** The returned search results
+* TODO Architectural Choices
+  The "Why" behind the various architectural choices.
+** TODO Why copy the Pages Functions code?
+   Why that, instead of writing all that code from scratch? And if this project is meant to be a
+   reflection of our skills, how might this choice reflect on those skills?
+** TODO Why Cloudflare Pages Functions?
+   And why not a classic JVM-based Clojure backend?
+** TODO Why re-frame?
+** TODO Why no backend persistence?
 * TODO Things intentionally not built, and why
 ** TODO Persistence
