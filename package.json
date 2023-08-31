@@ -4,7 +4,8 @@
   "scripts": {
     "watch": "npx shadow-cljs watch client",
     "release": "npx shadow-cljs release client",
-    "build-report": "npx shadow-cljs run shadow.cljs.build-report client target/build-report.html"
+    "build-report": "npx shadow-cljs run shadow.cljs.build-report client target/build-report.html",
+    "local-dev": "npx wrangler pages dev resources/public --compatibility-date=2023-08-14"
   },
   "devDependencies": {
     "karma": "^6.4.2",
