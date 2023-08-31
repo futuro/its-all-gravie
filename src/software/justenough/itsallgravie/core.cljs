@@ -12,6 +12,9 @@
             [superstructor.re-frame.fetch-fx]
             [software.justenough.itsallgravie.api-key :as api-key]
             [software.justenough.itsallgravie.search :as search]
+            [reagent-mui.material.app-bar :refer [app-bar]]
+            [reagent-mui.material.typography :refer [typography]]
+            [reagent-mui.material.box :refer [box]]
             [day8.re-frame.tracing :refer-macros [fn-traced]]
             [clojure.string :as str]))
 
@@ -38,7 +41,13 @@
 (defn ui
   []
   [:div
-   [:h1 "BlockBuster Forever"]
+   [box {:sx {:flexGrow 1}}
+    [app-bar
+     {:position "static"}
+     [typography
+      {:variant :h2
+       :component :div}
+      "BlockBuster Forever"]]]
    [api-key/input]
    [search/input]])
 
