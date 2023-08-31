@@ -15,6 +15,7 @@
             [reagent-mui.material.app-bar :refer [app-bar]]
             [reagent-mui.material.typography :refer [typography]]
             [reagent-mui.material.box :refer [box]]
+            [reagent-mui.material.toolbar :refer [toolbar]]
             [day8.re-frame.tracing :refer-macros [fn-traced]]
             [clojure.string :as str]))
 
@@ -40,14 +41,18 @@
 
 (defn ui
   []
-  [:div
-   [box {:sx {:flexGrow 1}}
-    [app-bar
-     {:position "static"}
+  [box {:style {:display "flex"
+                :flex-wrap :wrap
+                :flex-direction :column}
+        :sx {:flexGrow 1}}
+   [app-bar
+    {:position "static"}
+    [toolbar
      [typography
       {:variant :h2
        :component :div}
       "BlockBuster Forever"]]]
+   ;; TODO: figure out better spacing for this, or just a better layout in general
    [api-key/input]
    [search/input]])
 
