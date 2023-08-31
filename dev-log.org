@@ -155,6 +155,15 @@
     I might also skip serving the built HTML from the server, as shadow-cljs does that for me atm.
     Ultimately, were I to serve this anywhere, I'd like to give Cloudflare Pages, and Cloudflare
     Pages Functions, a go, to minimize the infrastructure I need to build.
+*** DONE Cloudflare Pages Functions, once again
+    So, after writing that, the siren song of using Pages Functions was strong enough to convince me
+    to give it a go, and I'm glad to say it works!
+
+    I'd still like to write out my reasoning behind this choice, as well as the trade-offs for it,
+    which will go in either a later section or another file.
+*** Displaying search output
+    Now that we've got a backend that can query giantbomb, we need to process the results and
+    display them.
 ** TODO Checkout
    Once we've got search functionality working, and can see/select games we'd like to rent, we'll
    have enough data to support building a checkout page.
