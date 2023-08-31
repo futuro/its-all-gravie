@@ -1,5 +1,6 @@
 {
-  "name": "simple",
+  "name": "its-all-gravie",
+  "description": "A little re-frame app.",
   "scripts": {
     "watch": "npx shadow-cljs watch client",
     "release": "npx shadow-cljs release client",
