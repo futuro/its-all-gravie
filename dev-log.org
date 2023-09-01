@@ -267,13 +267,18 @@
    And why not a classic JVM-based Clojure backend?
 ** TODO Why re-frame?
 ** TODO Why no backend persistence?
+** TODO Why bidi and pushy?
 * TODO Things intentionally not built, and why
-** TODO Persistence
-* TODO Outstanding bugs
+** TODO Backend Persistence
+** TODO Frontend Persistence
+   It'd be nice to persist at least some of the app state, such as the currently selected page and
+   the GB api key. That feels like a nicer user experience.
+* Outstanding bugs
+** Errant page reloads
   Sometimes -- seemingly on first load of the page -- navigation events don't get suppressed after
   handling from pushy.
 
   I'm not sure why, though I've tried to sort it out for a while.
 
   Next steps would be, I believe, to better understand the debugging tools at my disposal that would
-  allow me to trace the navigation event through its whole lifecycle.
+  allow me to trace the navigation event through its whole life cycle.
