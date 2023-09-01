@@ -19,4 +19,4 @@
  ;; to get a proof of concept up and running.
  (fn insert-server-hostname
    [cofx]
-   (assoc cofx ::server-hostname (.-location js/window))))
+   (assoc cofx ::server-hostname (.. js/window -location -origin))))

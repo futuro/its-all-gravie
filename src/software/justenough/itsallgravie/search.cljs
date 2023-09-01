@@ -53,7 +53,7 @@
    ;; I'm going to leave this as-is, even though it has a "smell" to it.
    (let [{:keys [api-key
                  search-term]} db
-         url                   (str hostname "api/search")]
+         url                   (str hostname "/api/search")]
      {:fx [[:fetch {:method                 :get
                     :url                    url
                     :timeout                5000
