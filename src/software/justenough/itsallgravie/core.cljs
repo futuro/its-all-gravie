@@ -83,8 +83,9 @@
               :label "Checkout"
               :value "checkout"
               :href "/checkout"}]]]]
-     [api-key/input]
-     [search/input]]))
+     (case current-page
+       :home [api-key/input]
+       :search [search/input])]))
 
 ;; -- Entry Point -------------------------------------------------------------
 
