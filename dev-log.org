@@ -269,3 +269,11 @@
 ** TODO Why no backend persistence?
 * TODO Things intentionally not built, and why
 ** TODO Persistence
+* TODO Outstanding bugs
+  Sometimes -- seemingly on first load of the page -- navigation events don't get suppressed after
+  handling from pushy.
+
+  I'm not sure why, though I've tried to sort it out for a while.
+
+  Next steps would be, I believe, to better understand the debugging tools at my disposal that would
+  allow me to trace the navigation event through its whole lifecycle.
