@@ -55,6 +55,7 @@
                   :flex-direction :column}
           :sx {:flexGrow 1}}
      [app-bar
+      {:position "static"}
       [toolbar
        [typography
         {:variant :h2
