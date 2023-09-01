@@ -23,7 +23,8 @@
             [reagent-mui.material.tabs :refer [tabs]]
             [reagent-mui.material.tab :refer [tab]]
             ;; Development aids
-            [day8.re-frame.tracing :refer-macros [fn-traced]]))
+            [day8.re-frame.tracing :refer-macros [fn-traced]]
+            [software.justenough.itsallgravie.home :as home]))
 
 ;; Helpers
 
@@ -50,10 +51,10 @@
   []
   (let [current-page @(rf/subscribe [::routes/current-page])
         change-page #(routes/dispatch-page %)]
-    [box {:style {:display "flex"
-                  :flex-wrap :wrap
+    [box {:style {:flex-wrap :wrap
                   :flex-direction :column}
-          :sx {:flexGrow 1}}
+          :sx {:flexGrow 1
+               :display "flex"}}
      [app-bar
       {:position "static"}
       [toolbar
@@ -84,8 +85,9 @@
               :value "checkout"
               :href "/checkout"}]]]]
      (case current-page
-       :home [api-key/input]
-       :search [search/input])]))
+       :home [home/page]
+       :search [search/input]
+       [home/page])]))
 
 ;; -- Entry Point -------------------------------------------------------------
 
