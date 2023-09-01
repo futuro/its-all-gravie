@@ -10,14 +10,20 @@
             [re-frame.core :as rf]
             ;; Needed for the `:fetch` effect handler
             [superstructor.re-frame.fetch-fx]
+            ;; Our code
             [software.justenough.itsallgravie.api-key :as api-key]
             [software.justenough.itsallgravie.search :as search]
+            [software.justenough.itsallgravie.routes :as routes]
+            ;; MUI components
             [reagent-mui.material.app-bar :refer [app-bar]]
-            [reagent-mui.material.typography :refer [typography]]
             [reagent-mui.material.box :refer [box]]
+            [reagent-mui.material.link :refer [link]]
+            [reagent-mui.material.typography :refer [typography]]
             [reagent-mui.material.toolbar :refer [toolbar]]
-            [day8.re-frame.tracing :refer-macros [fn-traced]]
-            [clojure.string :as str]))
+            [reagent-mui.material.tabs :refer [tabs]]
+            [reagent-mui.material.tab :refer [tab]]
+            ;; Development aids
+            [day8.re-frame.tracing :refer-macros [fn-traced]]))
 
 ;; Helpers
 
@@ -32,6 +38,7 @@
  :initialize
  (fn [_ _]
    {:api-key        ""
+    :current-page   "home"
     :cart           []
     :search-term    ""
     :search-results []
@@ -41,20 +48,42 @@
 
 (defn ui
   []
-  [box {:style {:display "flex"
-                :flex-wrap :wrap
-                :flex-direction :column}
-        :sx {:flexGrow 1}}
-   [app-bar
-    {:position "static"}
-    [toolbar
-     [typography
-      {:variant :h2
-       :component :div}
-      "BlockBuster Forever"]]]
-   ;; TODO: figure out better spacing for this, or just a better layout in general
-   [api-key/input]
-   [search/input]])
+  (let [current-page @(rf/subscribe [::routes/current-page])
+        change-page #(routes/dispatch-page %)]
+    [box {:style {:display "flex"
+                  :flex-wrap :wrap
+                  :flex-direction :column}
+          :sx {:flexGrow 1}}
+     [app-bar
+      [toolbar
+       [typography
+        {:variant :h2
+         :component :div
+         :sx {:flexGrow 1}}
+        [link
+         {:href "/"
+          :color "primary.contrastText"
+          :underline "none"}
+         "BlockBuster Forever"]]
+       [tabs
+        {:value current-page
+         :sx {:color "primary.contrastText"}
+         :textColor "inherit"
+         :indicatorColor "secondary"}
+        [tab {:component :a
+              :value "home"
+              :label "Home"
+              :href "/home"}]
+        [tab {:component :a
+              :label "Search"
+              :value "search"
+              :href "/search"}]
+        [tab {:component :a
+              :label "Checkout"
+              :value "checkout"
+              :href "/checkout"}]]]]
+     [api-key/input]
+     [search/input]]))
 
 ;; -- Entry Point -------------------------------------------------------------
 
