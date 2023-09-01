@@ -86,7 +86,7 @@
               :href "/checkout"}]]]]
      (case current-page
        :home [home/page]
-       :search [search/input]
+       :search [search/page]
        [home/page])]))
 
 ;; -- Entry Point -------------------------------------------------------------

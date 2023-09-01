@@ -5,7 +5,10 @@
             [re-frame.core :as rf]
             [software.justenough.itsallgravie.utils :as utils]
             ;; Needed for the `:fetch` effect handler
-            [superstructor.re-frame.fetch-fx]))
+            [superstructor.re-frame.fetch-fx]
+            [reagent-mui.material.text-field :refer [text-field]]
+            [reagent-mui.material.container :refer [container]]
+            [reagent-mui.material.typography :refer [typography]]))
 
 ;; -- Events -------------------------------------------------------
 
@@ -71,15 +74,19 @@
  (fn [db _]
    (:search-term db)))
 
-(defn input
+(defn page
   []
   (let [emit        (fn [e] (rf/dispatch [::term-change (utils/event->value e)]))
         search-term @(rf/subscribe [::term])]
-    [:div
-     "Search Term: "
-     [:input {:type  "text"
-              :style {:border "1px solid #CCC"}
-              :value search-term
-              :on-change emit
-              :on-key-down #(when (= (.-which %) 13) (rf/dispatch [::initiate-search]))}]]))
-
+    [container {:maxWidth "lg"
+                :sx {:margin-top 4
+                     :display "flex"
+                     :alignItems "center"
+                     :flexDirection "column"}}
+     [typography {:variant :h3}
+      "What would you like to rent?"]
+     [text-field {:label "Search Term"
+                  :variant :outlined
+                  :value search-term
+                  :on-change emit
+                  :on-key-down #(when (= (.-which %) 13) (rf/dispatch [::initiate-search]))}]]))
