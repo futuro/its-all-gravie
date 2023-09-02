@@ -6,7 +6,12 @@
             [software.justenough.itsallgravie.utils :as utils]
             ;; Needed for the `:fetch` effect handler
             [superstructor.re-frame.fetch-fx]
+            [reagent-mui.material.unstable-grid-2 :rename {unstable-grid-2 grid2}]
             [reagent-mui.material.text-field :refer [text-field]]
+            [reagent-mui.material.card :refer [card]]
+            [reagent-mui.material.card-actions :refer [card-actions]]
+            [reagent-mui.material.card-content :refer [card-content]]
+            [reagent-mui.material.card-media :refer [card-media]]
             [reagent-mui.material.container :refer [container]]
             [reagent-mui.material.typography :refer [typography]]))
 
@@ -87,6 +92,40 @@
  (fn [db _]
    (:search-term db)))
 
+(rf/reg-sub
+ ::results
+ (fn [db _]
+   (:search-results db)))
+
+(rf/reg-sub
+ ::game
+ (fn [db [_ game-ref]]
+   (get-in db game-ref)))
+
+(defn game-card
+  [game-ref]
+  (let [game @(rf/subscribe [::game game-ref])
+        title (:name game)
+        thumbnail-url (get-in game [:image :thumb_url])]
+    [grid2 {:xs 2}
+     [card
+      [card-media {:component :img
+                   :image thumbnail-url}]
+      [card-content
+       [typography {:gutterBottom true
+                    :variant :h5
+                    :component :div}
+        title]]]]))
+
+(defn search-results
+  []
+  (let [results (:results @(rf/subscribe [::results]))]
+    [grid2 {:container true
+            :spacing 4
+            :flex-wrap :wrap}
+     (for [game-ref results]
+       ^{:key game-ref} [game-card game-ref])]))
+
 (defn page
   []
   (let [emit        (fn [e] (rf/dispatch [::term-change (utils/event->value e)]))
@@ -95,11 +134,13 @@
                 :sx {:margin-top 4
                      :display "flex"
                      :alignItems "center"
-                     :flexDirection "column"}}
+                     :flexDirection "column"
+                     :row-gap "10px"}}
      [typography {:variant :h3}
       "What would you like to rent?"]
      [text-field {:label "Search Term"
                   :variant :outlined
                   :value search-term
                   :on-change emit
-                  :on-key-down #(when (= (.-which %) 13) (rf/dispatch [::initiate-search]))}]]))
+                  :on-key-down #(when (= (.-which %) 13) (rf/dispatch [::initiate-search]))}]
+     [search-results]]))
