@@ -40,7 +40,7 @@
  (fn [_ _]
    {:api-key        ""
     :current-page   "home"
-    :cart           []
+    :cart           #{}
     :games          {}
     :search-term    ""
     :search-results []
