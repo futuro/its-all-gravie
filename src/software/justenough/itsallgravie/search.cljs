@@ -8,6 +8,7 @@
             [superstructor.re-frame.fetch-fx]
             [reagent-mui.material.unstable-grid-2 :rename {unstable-grid-2 grid2}]
             [reagent-mui.material.text-field :refer [text-field]]
+            [reagent-mui.material.button :refer [button]]
             [reagent-mui.material.card :refer [card]]
             [reagent-mui.material.card-actions :refer [card-actions]]
             [reagent-mui.material.card-content :refer [card-content]]
@@ -102,20 +103,47 @@
  (fn [db [_ game-ref]]
    (get-in db game-ref)))
 
+(rf/reg-sub
+ ::cart
+ (fn [db _]
+   (:cart db)))
+
+(rf/reg-event-db
+ ::add-to-cart
+ (fn [db [_ game-ref]]
+   (update db :cart conj game-ref)))
+
+(rf/reg-event-db
+ ::remove-from-cart
+ (fn [db [_ game-ref]]
+   (update db :cart disj game-ref)))
+
 (defn game-card
   [game-ref]
-  (let [game @(rf/subscribe [::game game-ref])
-        title (:name game)
-        thumbnail-url (get-in game [:image :thumb_url])]
+  (let [game              @(rf/subscribe [::game game-ref])
+        current-cart      @(rf/subscribe [::cart])
+        title             (:name game)
+        thumbnail-url     (get-in game [:image :thumb_url])
+        add-to-cart!      (fn [] (rf/dispatch [::add-to-cart game-ref]))
+        remove-from-cart! (fn [] (rf/dispatch [::remove-from-cart game-ref]))]
     [grid2 {:xs 2}
      [card
       [card-media {:component :img
-                   :image thumbnail-url}]
+                   :image     thumbnail-url}]
       [card-content
        [typography {:gutterBottom true
-                    :variant :h5
-                    :component :div}
-        title]]]]))
+                    :variant      :h5
+                    :component    :div}
+        title]]
+      [card-actions
+       (if (contains? current-cart game-ref)
+         [button {:size :small
+                  :on-click remove-from-cart!}
+          "Remove from cart!"]
+         [button {:size     :small
+                  :color    :primary
+                  :on-click add-to-cart!}
+          "Add to cart!"])]]]))
 
 (defn search-results
   []
