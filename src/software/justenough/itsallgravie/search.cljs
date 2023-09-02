@@ -151,6 +151,7 @@
     [grid2 {:container true
             :spacing 4
             :flex-wrap :wrap}
+     ;; TODO: add pagination?
      (for [game-ref results]
        ^{:key game-ref} [game-card game-ref])]))
 
