@@ -24,7 +24,8 @@
             [reagent-mui.material.tab :refer [tab]]
             ;; Development aids
             [day8.re-frame.tracing :refer-macros [fn-traced]]
-            [software.justenough.itsallgravie.home :as home]))
+            [software.justenough.itsallgravie.home :as home]
+            [software.justenough.itsallgravie.checkout :as checkout]))
 
 ;; Helpers
 
@@ -88,6 +89,7 @@
      (case current-page
        :home [home/page]
        :search [search/page]
+       :checkout [checkout/page]
        [home/page])]))
 
 ;; -- Entry Point -------------------------------------------------------------
