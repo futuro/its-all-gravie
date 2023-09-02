@@ -41,6 +41,7 @@
    {:api-key        ""
     :current-page   "home"
     :cart           []
+    :games          {}
     :search-term    ""
     :search-results []
     :rented-items   []}))

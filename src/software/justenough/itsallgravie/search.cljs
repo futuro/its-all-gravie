@@ -17,11 +17,24 @@
  (fn [db [_ new-search-term]]
    (assoc db :search-term new-search-term)))
 
+(defn- results->games-map
+  [results]
+  (reduce (fn [acc m]
+            (assoc acc (:id m) m))
+          {}
+          results))
+
 (rf/reg-event-fx
  ::successful-search
  (fn [{db :db} [_ response]]
-   {:fx [[::utils/log response]]
-    :db (assoc db :search-results (:body response))}))
+   (let [body          (:body response)
+         game-id->game (results->games-map (:results body))
+         game-refs     (map #(vector :games %) (keys game-id->game))
+         body          (assoc body :results game-refs)]
+     {:fx [[::utils/log response]]
+      :db (-> db
+              (update :games merge game-id->game)
+              (assoc :search-results body))})))
 
 (rf/reg-event-fx
  ::failed-search
