@@ -29,7 +29,7 @@
   [route-str]
   (bidi/match-route routes route-str))
 
-(def history
+(defonce history
   (pushy/pushy dispatch-page match-fn :identity-fn :handler))
 
 (defn ^:dev/before-load stop-pushy-listeners
