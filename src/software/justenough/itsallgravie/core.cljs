@@ -6,8 +6,10 @@
   The reasoning behind this decision is laid out in the `dev-log.org` file, but I have since altered
   it almost completely. Still, I wanted to give credit where it's due, for getting me off the
   ground."
-  (:require [reagent.dom :as rdom]
+  (:require [clojure.string :as str]
+            [reagent.dom.client :as rdomc]
             [re-frame.core :as rf]
+            ["react" :as react]
             ;; Needed for the `:fetch` effect handler
             [superstructor.re-frame.fetch-fx]
             ;; Our code
@@ -94,10 +96,12 @@
 
 ;; -- Entry Point -------------------------------------------------------------
 
+(defonce react-root
+  (rdomc/create-root (js/document.getElementById "app")))
+
 (defn mount-ui
   []
-  (rdom/render [ui]
-               (js/document.getElementById "app")))
+  (rdomc/render react-root [ui]))
 
 (defn ^:dev/after-load clear-cache-and-render!
   []
