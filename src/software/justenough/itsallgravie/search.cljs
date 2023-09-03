@@ -14,7 +14,8 @@
             [reagent-mui.material.card-content :refer [card-content]]
             [reagent-mui.material.card-media :refer [card-media]]
             [reagent-mui.material.container :refer [container]]
-            [reagent-mui.material.typography :refer [typography]]))
+            [reagent-mui.material.typography :refer [typography]]
+            [software.justenough.itsallgravie.game :as game]))
 
 ;; -- Events -------------------------------------------------------
 
@@ -118,42 +119,11 @@
  (fn [db [_ game-ref]]
    (update db :cart disj game-ref)))
 
-(defn game-card
-  [game-ref]
-  (let [game              @(rf/subscribe [::game game-ref])
-        current-cart      @(rf/subscribe [::cart])
-        title             (:name game)
-        thumbnail-url     (get-in game [:image :thumb_url])
-        add-to-cart!      (fn [] (rf/dispatch [::add-to-cart game-ref]))
-        remove-from-cart! (fn [] (rf/dispatch [::remove-from-cart game-ref]))]
-    [grid2 {:xs 2}
-     [card
-      [card-media {:component :img
-                   :image     thumbnail-url}]
-      [card-content
-       [typography {:gutterBottom true
-                    :variant      :h5
-                    :component    :div}
-        title]]
-      [card-actions
-       (if (contains? current-cart game-ref)
-         [button {:size :small
-                  :on-click remove-from-cart!}
-          "Remove from cart!"]
-         [button {:size     :small
-                  :color    :primary
-                  :on-click add-to-cart!}
-          "Add to cart!"])]]]))
-
 (defn search-results
   []
-  (let [results (:results @(rf/subscribe [::results]))]
-    [grid2 {:container true
-            :spacing 4
-            :flex-wrap :wrap}
-     ;; TODO: add pagination?
-     (for [game-ref results]
-       ^{:key game-ref} [game-card game-ref])]))
+  (let [game-refs (:results @(rf/subscribe [::results]))]
+    ;; TODO: add pagination?
+    (game/grid game-refs)))
 
 (defn page
   []
