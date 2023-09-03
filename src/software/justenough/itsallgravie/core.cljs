@@ -37,6 +37,11 @@
   [e]
   (-> e .-target .-value))
 
+(defn url-tab
+  [page-name]
+  [tab {:label (str/capitalize page-name)
+        :value (str/lower-case page-name)
+        :href  (str "/" (str/lower-case page-name))}])
 
 (defn ui
   []
@@ -63,18 +68,9 @@
          :sx {:color "primary.contrastText"}
          :textColor "inherit"
          :indicatorColor "secondary"}
-        [tab {:component :a
-              :value "home"
-              :label "Home"
-              :href "/home"}]
-        [tab {:component :a
-              :label "Search"
-              :value "search"
-              :href "/search"}]
-        [tab {:component :a
-              :label "Checkout"
-              :value "checkout"
-              :href "/checkout"}]]]]
+        (url-tab "home")
+        (url-tab "search")
+        (url-tab "checkout")]]]
      (case current-page
        :home [home/page]
        :search [search/page]
