@@ -32,11 +32,6 @@
 (defonce history
   (pushy/pushy dispatch-page match-fn :identity-fn :handler))
 
-(defn ^:dev/before-load stop-pushy-listeners
-  "The before-load metadata tells shadow cljs to run this function before loading the new code, and
-  this way we can ensure that the event listeners registered by `pushy/start!` for the old `history`
-  var are cleaned up, as they'd otherwise be left running."
-  []
-  (pushy/stop! history))
-
+;; Pushy automatically calls `pushy/stop!` on our history var when we call `pushy/start!`, so I'm
+;; not going to handle that myself.
 (pushy/start! history)
