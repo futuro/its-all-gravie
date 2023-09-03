@@ -75,7 +75,7 @@
          url                   (str hostname "/api/search")]
      {:fx [[:fetch {:method                 :get
                     :url                    url
-                    :timeout                5000
+                    :timeout                10000
                     :request-content-type   :json
                     :response-content-types {#"application/.*json" :json}
                     :params                 {:api_key api-key
