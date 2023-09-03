@@ -27,7 +27,8 @@
             ;; Development aids
             [day8.re-frame.tracing :refer-macros [fn-traced]]
             [software.justenough.itsallgravie.home :as home]
-            [software.justenough.itsallgravie.checkout :as checkout]))
+            [software.justenough.itsallgravie.checkout :as checkout]
+            [software.justenough.itsallgravie.db :as db]))
 
 ;; Helpers
 
@@ -36,20 +37,6 @@
   [e]
   (-> e .-target .-value))
 
-;; -- Domino 2 - Event Handlers -----------------------------------------------
-
-(rf/reg-event-db
- :initialize
- (fn [_ _]
-   {:api-key        ""
-    :current-page   "home"
-    :cart           #{}
-    :games          {}
-    :search-term    ""
-    :search-results []
-    :rented-items   []}))
-
-;; -- Domino 5 - View Functions ----------------------------------------------
 
 (defn ui
   []
@@ -111,7 +98,7 @@
   (rf/clear-subscription-cache!)
   (mount-ui))
 
-(defn run               ;; Your app calls this when it starts. See shadow-cljs.edn :init-fn.
+(defn run
   []
-  (rf/dispatch-sync [:initialize]) ;; put a value into application state
-  (mount-ui))                      ;; mount the application's ui into '<div id="app" />'
+  (rf/dispatch-sync [::db/initialize])
+  (mount-ui))
