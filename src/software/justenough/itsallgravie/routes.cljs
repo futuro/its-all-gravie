@@ -2,7 +2,8 @@
   (:require [bidi.bidi :as bidi]
             [pushy.core :as pushy]
             [day8.re-frame.tracing :refer-macros [fn-traced]]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [software.justenough.itsallgravie.db :as db]))
 
 (rf/reg-sub
  ::current-page
@@ -11,6 +12,7 @@
 
 (rf/reg-event-db
  ::change-page
+ [db/persist-db-intercepter]
  (fn-traced [db [_ page-key]]
    (assoc db :current-page page-key)))
 

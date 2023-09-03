@@ -15,7 +15,8 @@
             [reagent-mui.material.card-media :refer [card-media]]
             [reagent-mui.material.container :refer [container]]
             [reagent-mui.material.typography :refer [typography]]
-            [software.justenough.itsallgravie.game :as game]))
+            [software.justenough.itsallgravie.game :as game]
+            [software.justenough.itsallgravie.db :as db]))
 
 ;; -- Events -------------------------------------------------------
 
@@ -111,11 +112,13 @@
 
 (rf/reg-event-db
  ::add-to-cart
+ [db/persist-db-intercepter]
  (fn [db [_ game-ref]]
    (update db :cart conj game-ref)))
 
 (rf/reg-event-db
  ::remove-from-cart
+ [db/persist-db-intercepter]
  (fn [db [_ game-ref]]
    (update db :cart disj game-ref)))
 
