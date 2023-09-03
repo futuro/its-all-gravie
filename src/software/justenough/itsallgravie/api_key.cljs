@@ -8,10 +8,12 @@
             [software.justenough.itsallgravie.utils :as utils]
             [day8.re-frame.tracing :refer-macros [fn-traced]]
             [clojure.string :as str]
-            [reagent-mui.material.typography :refer [typography]]))
+            [reagent-mui.material.typography :refer [typography]]
+            [software.justenough.itsallgravie.db :as db]))
 
 (rf/reg-event-db
  ::change
+ [db/persist-db-intercepter]
  (fn [db [_ new-api-key]]
    (assoc db :api-key (str/trim new-api-key))))
 
