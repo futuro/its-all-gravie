@@ -7,6 +7,8 @@
                 ;; Routing
                 [bidi/bidi "2.1.6"]
                 [kibu/pushy "0.3.8"]
+                ;; LocalStorage client-side persistence
+                [akiroz.re-frame/storage "0.1.4"]
                 [reagent/reagent "1.2.0"]
                 [arttuka/reagent-material-ui "5.11.12-0"]
                 [superstructor/re-frame-fetch-fx "0.4.0"]
