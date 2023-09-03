@@ -27,7 +27,8 @@
     [:div
      {:style {:display :flex
               :flex-direction :column}}
-     [typography {:variant :body1}
+     [typography {:variant :body1
+                  :mb "5px"}
       "Enter in your Giant Bomb API key to start renting games!"]
      [text-field {:label "API Key"
                   :variant "outlined"
