@@ -33,7 +33,7 @@ export async function onRequest (context) {
     headers: {
       "content-type": "application/json;charset=UTF-8",
       // GiantBomb requires that you set a unique User Agent, or it rejects your request.
-      "User-Agent": "BlockBuster Forever/1.0"
+      "User-Agent": "It's All Gravie/1.0"
     },
   };
 

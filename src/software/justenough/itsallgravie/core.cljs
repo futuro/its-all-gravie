@@ -68,7 +68,7 @@
          {:href "/"
           :color "primary.contrastText"
           :underline "none"}
-         "BlockBuster Forever"]]
+         "It's All Gravie: the game library!"]]
        [tabs
         {:value current-page
          :sx {:color "primary.contrastText"}
