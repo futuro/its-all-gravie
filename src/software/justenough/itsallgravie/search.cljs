@@ -87,9 +87,6 @@
                     :on-success             [::successful-search]
                     :on-failure             [::failed-search]}]]})))
 
-
-;; -- Queries -------------------------------------------------------
-
 (rf/reg-sub
  ::term
  (fn [db _]
@@ -99,11 +96,6 @@
  ::results
  (fn [db _]
    (:search-results db)))
-
-(rf/reg-sub
- ::game
- (fn [db [_ game-ref]]
-   (get-in db game-ref)))
 
 (defn search-results
   []

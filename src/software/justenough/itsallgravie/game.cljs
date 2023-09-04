@@ -17,6 +17,11 @@
             [reagent-mui.material.typography :refer [typography]]
             [software.justenough.itsallgravie.cart :as cart]))
 
+(rf/reg-sub
+ ::game
+ (fn [db [_ game-ref]]
+   (get-in db game-ref)))
+
 (defn card
   [game-ref]
   (let [game              @(rf/subscribe [::game game-ref])
