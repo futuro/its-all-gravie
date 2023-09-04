@@ -9,7 +9,8 @@
 (rf/reg-fx
  ::log
  (fn [value]
-   (js/console.log value)))
+   (when goog.DEBUG
+     (js/console.log value))))
 
 (rf/reg-cofx
  ::server-hostname
