@@ -30,7 +30,8 @@
         thumbnail-url     (get-in game [:image :thumb_url])
         add-to-cart!      (fn [] (rf/dispatch [::cart/add-to-cart game-ref]))
         remove-from-cart! (fn [] (rf/dispatch [::cart/remove-from-cart game-ref]))]
-    [grid2 {:xs 2}
+    [grid2 {:xs 2
+            :sx {:flexGrow 1}}
      [mui-card
       [card-media {:component :img
                    :image     thumbnail-url}]
@@ -55,6 +56,7 @@
   [game-refs]
   [grid2 {:container true
           :spacing 4
-          :flex-wrap :wrap}
+          :flex-wrap :wrap
+          :sx {:flexGrow 1}}
    (for [game-ref game-refs]
      ^{:key game-ref} [card game-ref])])
