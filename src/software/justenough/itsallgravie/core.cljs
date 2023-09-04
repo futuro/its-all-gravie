@@ -7,9 +7,8 @@
   it almost completely. Still, I wanted to give credit where it's due, for getting me off the
   ground."
   (:require [clojure.string :as str]
-            [reagent.dom.client :as rdomc]
+            [reagent.dom :as rdom]
             [re-frame.core :as rf]
-            ["react" :as react]
             ;; Needed for the `:fetch` effect handler
             [superstructor.re-frame.fetch-fx]
             ;; Our code
@@ -79,12 +78,10 @@
 
 ;; -- Entry Point -------------------------------------------------------------
 
-(defonce react-root
-  (rdomc/create-root (js/document.getElementById "app")))
-
 (defn mount-ui
   []
-  (rdomc/render react-root [ui]))
+  (rdom/render [ui]
+               (js/document.getElementById "app")))
 
 (defn ^:dev/after-load clear-cache-and-render!
   []
