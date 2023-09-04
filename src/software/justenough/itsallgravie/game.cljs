@@ -22,6 +22,11 @@
  (fn [db [_ game-ref]]
    (get-in db game-ref)))
 
+(rf/reg-sub
+ ::rented-games
+ (fn [db _]
+   (:rented-games db)))
+
 (defn card
   [game-ref]
   (let [game              @(rf/subscribe [::game game-ref])
