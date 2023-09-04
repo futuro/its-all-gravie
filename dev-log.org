@@ -85,7 +85,7 @@
    page.
 ** DONE An API key input field
    This was essentially the same as the basic search input field.
-** TODO hitting the Giant Bomb api
+** DONE hitting the Giant Bomb api
    Now that we've got a basic search input field, and an api key input field, let's hit the Giant
    Bomb api.
 
@@ -164,7 +164,7 @@
 *** Displaying search output
     Now that we've got a backend that can query giantbomb, we need to process the results and
     display them.
-** TODO Checkout
+** DONE Checkout
    Once we've got search functionality working, and can see/select games we'd like to rent, we'll
    have enough data to support building a checkout page.
 * Re-frame learnings
