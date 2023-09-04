@@ -27,14 +27,21 @@
  (fn [db _]
    (:rented-games db)))
 
+(rf/reg-event-db
+ ::return-game
+ (fn [db [_ game-ref]]
+   (update db :rented-games disj game-ref)))
+
 (defn card
   [game-ref]
   (let [game              @(rf/subscribe [::game game-ref])
         current-cart      @(rf/subscribe [::cart/current-cart])
+        borrowed-games    @(rf/subscribe [::rented-games])
         title             (:name game)
         thumbnail-url     (get-in game [:image :thumb_url])
         add-to-cart!      (fn [] (rf/dispatch [::cart/add-to-cart game-ref]))
-        remove-from-cart! (fn [] (rf/dispatch [::cart/remove-from-cart game-ref]))]
+        remove-from-cart! (fn [] (rf/dispatch [::cart/remove-from-cart game-ref]))
+        return-game!      (fn [] (rf/dispatch [::return-game game-ref]))]
     [grid2 {:xs 2
             :sx {:flexGrow 1}}
      [mui-card
@@ -46,12 +53,18 @@
                     :component    :div}
         title]]
       [card-actions
-       ;; These work on pages that interface with the cart, but will need to be tweaked for the home
-       ;; page.
-       (if (contains? current-cart game-ref)
-         [button {:size :small
+       (cond
+         (contains? borrowed-games game-ref)
+         [button {:size     :small
+                  :on-click return-game!}
+          "Return game"]
+
+         (contains? current-cart game-ref)
+         [button {:size     :small
                   :on-click remove-from-cart!}
           "Remove from cart!"]
+
+         true
          [button {:size     :small
                   :color    :primary
                   :on-click add-to-cart!}
