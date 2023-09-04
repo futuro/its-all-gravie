@@ -274,7 +274,9 @@
    It'd be nice to persist at least some of the app state, such as the currently selected page and
    the GB api key. That feels like a nicer user experience.
 ** TODO Pagination
-* Outstanding bugs
+** TODO Handling search errors
+** TODO Progress-spinners while waiting for search results to come back.
+* (Previously) Outstanding bugs
 ** Errant page reloads
   Sometimes -- seemingly on first load of the page -- navigation events don't get suppressed after
   handling from pushy.
@@ -283,3 +285,10 @@
 
   Next steps would be, I believe, to better understand the debugging tools at my disposal that would
   allow me to trace the navigation event through its whole life cycle.
+*** An Update!
+    I believe that changing the history var to a defonce, in [[https://github.com/futuro/its-all-gravie/commit/8ad1a03107b6d9a90735a76fe577163b2e2bb7d0][this commit]], may have resolved this
+    issue!
+
+    Since I never felt certain about the cause of this issue, I can't know definitively that it's
+    fixed, but it hasn't happened yet since making that change, which gives me confidence it's
+    resolved.
