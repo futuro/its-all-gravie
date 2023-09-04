@@ -20,18 +20,26 @@
 
 (defn page
   []
-  (let [cart @(rf/subscribe [::cart/current-cart])]
-    [container {:maxWidth "lg"
-                :sx {:margin-top 4
-                     :display "flex"
-                     :alignItems "center"
-                     :flexDirection "column"
-                     :row-gap "10px"}}
-     [typography {:variant :h3}
-      "Let's borrow some games!"]
-     [game/grid cart]]))
-
-;; TODO:
-;; - display the items in the cart, with the ability to remove them from the cart
-;; - have some kind of button that does the renting
-;; - maybe skip any semblance of billing? That doesn't seem relevant for the goals of the project 🤔
+  (let [cart @(rf/subscribe [::cart/current-cart])
+        borrow-games (fn [] (rf/dispatch [::cart/borrow-cart cart]))]
+    (if-not (empty? cart)
+      [container {:maxWidth "lg"
+                  :sx {:margin-top 4
+                       :display "flex"
+                       :alignItems "center"
+                       :flexDirection "column"
+                       :row-gap "10px"}}
+       [typography {:variant :h3}
+        "Let's borrow some games!"]
+       [game/grid cart]
+       [button {:variant "contained"
+                :on-click borrow-games}
+        "Borrow these games!"]]
+      [container {:maxWidth "lg"
+                  :sx {:margin-top 4
+                       :display "flex"
+                       :alignItems "center"
+                       :flexDirection "column"
+                       :row-gap "10px"}}
+       [typography {:variant :h4}
+        "Oh shoot, your cart's empty; go search for some cool games to borrow!"]])))
