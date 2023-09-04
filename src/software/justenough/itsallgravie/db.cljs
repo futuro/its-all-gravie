@@ -10,7 +10,7 @@
    :current-page
    :cart
    :games
-   :rented-games])
+   :borrowed-games])
 
 (defn persist-db-keys
   "This is an almost exact replica of `local-storage/persist-db-keys`, except that I've changed the
@@ -49,5 +49,5 @@
            :games          {}
            :search-term    ""
            :search-results []
-           :rented-games   #{}}
+           :borrowed-games   #{}}
           db)))

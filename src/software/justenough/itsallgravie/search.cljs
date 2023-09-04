@@ -114,7 +114,7 @@
                      :flexDirection "column"
                      :row-gap "10px"}}
      [typography {:variant :h3}
-      "What would you like to rent?"]
+      "What would you like to borrow?"]
      [text-field {:label "Search Term"
                   :variant :outlined
                   :value search-term

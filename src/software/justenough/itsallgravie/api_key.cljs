@@ -31,7 +31,7 @@
               :flex-direction :column}}
      [typography {:variant :body1
                   :mb "5px"}
-      "Enter in your Giant Bomb API key to start renting games!"]
+      "Enter in your Giant Bomb API key to start borrowing games!"]
      [text-field {:label "API Key"
                   :variant "outlined"
                   :value api-key

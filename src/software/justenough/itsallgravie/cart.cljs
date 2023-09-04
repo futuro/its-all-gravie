@@ -23,7 +23,7 @@
  ::borrow-cart
  [db/persist-db-intercepter]
  (fn [{:keys [db]} [_ game-refs]]
-   {:db (update db :rented-games into game-refs)
+   {:db (update db :borrowed-games into game-refs)
     :fx [[:dispatch [::empty-cart]]]}))
 
 (rf/reg-event-db

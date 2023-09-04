@@ -6,9 +6,9 @@
             [re-frame.core :as rf]
             [software.justenough.itsallgravie.game :as game]))
 
-(defn rented-games
+(defn borrowed-games
   []
-  (let [borrowed-games @(rf/subscribe [::game/rented-games])]
+  (let [borrowed-games @(rf/subscribe [::game/borrowed-games])]
     [container
      [typography
       {:variant :h3}
@@ -31,4 +31,4 @@
    [api-key/input]
    [divider {:flexItem true
              :sx {:my "10px"}}]
-   [rented-games]])
+   [borrowed-games]])

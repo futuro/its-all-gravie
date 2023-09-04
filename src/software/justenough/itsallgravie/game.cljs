@@ -23,20 +23,20 @@
    (get-in db game-ref)))
 
 (rf/reg-sub
- ::rented-games
+ ::borrowed-games
  (fn [db _]
-   (:rented-games db)))
+   (:borrowed-games db)))
 
 (rf/reg-event-db
  ::return-game
  (fn [db [_ game-ref]]
-   (update db :rented-games disj game-ref)))
+   (update db :borrowed-games disj game-ref)))
 
 (defn card
   [game-ref]
   (let [game              @(rf/subscribe [::game game-ref])
         current-cart      @(rf/subscribe [::cart/current-cart])
-        borrowed-games    @(rf/subscribe [::rented-games])
+        borrowed-games    @(rf/subscribe [::borrowed-games])
         title             (:name game)
         thumbnail-url     (get-in game [:image :thumb_url])
         add-to-cart!      (fn [] (rf/dispatch [::cart/add-to-cart game-ref]))
