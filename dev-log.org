@@ -246,18 +246,6 @@
    functionality to ask "is this enough?". As for what constitutes =enough=, I think a good way to
    phrase the question could be "does the current functionality inspire confidence, or are there
    things that are missing which you would like to see?".
-* TODO Things to build
-** Search
-*** Search UI
-*** Item display UI
-*** Ability to query the giant bomb api
-** Checkout
-*** Rented items
-*** Checkout cart
-** App State
-*** An API key
-*** The current search
-*** The returned search results
 * TODO Architectural Choices
   The "Why" behind the various architectural choices.
 ** TODO Why copy the Pages Functions code?
