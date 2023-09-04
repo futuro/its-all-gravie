@@ -105,23 +105,6 @@
  (fn [db [_ game-ref]]
    (get-in db game-ref)))
 
-(rf/reg-sub
- ::cart
- (fn [db _]
-   (:cart db)))
-
-(rf/reg-event-db
- ::add-to-cart
- [db/persist-db-intercepter]
- (fn [db [_ game-ref]]
-   (update db :cart conj game-ref)))
-
-(rf/reg-event-db
- ::remove-from-cart
- [db/persist-db-intercepter]
- (fn [db [_ game-ref]]
-   (update db :cart disj game-ref)))
-
 (defn search-results
   []
   (let [game-refs (:results @(rf/subscribe [::results]))]

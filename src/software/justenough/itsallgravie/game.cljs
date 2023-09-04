@@ -14,16 +14,17 @@
             [reagent-mui.material.card-content :refer [card-content]]
             [reagent-mui.material.card-media :refer [card-media]]
             [reagent-mui.material.container :refer [container]]
-            [reagent-mui.material.typography :refer [typography]]))
+            [reagent-mui.material.typography :refer [typography]]
+            [software.justenough.itsallgravie.cart :as cart]))
 
 (defn card
   [game-ref]
   (let [game              @(rf/subscribe [::game game-ref])
-        current-cart      @(rf/subscribe [::cart])
+        current-cart      @(rf/subscribe [::cart/current-cart])
         title             (:name game)
         thumbnail-url     (get-in game [:image :thumb_url])
-        add-to-cart!      (fn [] (rf/dispatch [::add-to-cart game-ref]))
-        remove-from-cart! (fn [] (rf/dispatch [::remove-from-cart game-ref]))]
+        add-to-cart!      (fn [] (rf/dispatch [::cart/add-to-cart game-ref]))
+        remove-from-cart! (fn [] (rf/dispatch [::cart/remove-from-cart game-ref]))]
     [grid2 {:xs 2}
      [mui-card
       [card-media {:component :img
