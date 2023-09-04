@@ -14,12 +14,22 @@
             [reagent-mui.material.card-content :refer [card-content]]
             [reagent-mui.material.card-media :refer [card-media]]
             [reagent-mui.material.container :refer [container]]
-            [reagent-mui.material.typography :refer [typography]]))
+            [reagent-mui.material.typography :refer [typography]]
+            [software.justenough.itsallgravie.cart :as cart]
+            [software.justenough.itsallgravie.game :as game]))
 
 (defn page
   []
-  [typography {:variant :h3}
-   "Let's rent those games!"])
+  (let [cart @(rf/subscribe [::cart/current-cart])]
+    [container {:maxWidth "lg"
+                :sx {:margin-top 4
+                     :display "flex"
+                     :alignItems "center"
+                     :flexDirection "column"
+                     :row-gap "10px"}}
+     [typography {:variant :h3}
+      "Let's borrow some games!"]
+     [game/grid cart]]))
 
 ;; TODO:
 ;; - display the items in the cart, with the ability to remove them from the cart
