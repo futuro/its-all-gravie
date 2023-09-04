@@ -101,7 +101,7 @@
   []
   (let [game-refs (:results @(rf/subscribe [::results]))]
     ;; TODO: add pagination?
-    (game/grid game-refs)))
+    [game/grid game-refs]))
 
 (defn page
   []
