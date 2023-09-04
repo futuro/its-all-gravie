@@ -51,8 +51,6 @@
                   :on-click add-to-cart!}
           "Add to cart!"])]]]))
 
-
-
 (defn grid
   [game-refs]
   [grid2 {:container true
