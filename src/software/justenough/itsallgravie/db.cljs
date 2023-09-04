@@ -49,5 +49,5 @@
            :games          {}
            :search-term    ""
            :search-results []
-           :rented-games   []}
+           :rented-games   #{}}
           db)))
