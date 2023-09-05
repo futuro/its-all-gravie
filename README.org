@@ -2,3 +2,44 @@
 A job interview project posing as a Library you can borrow games from.
 
 Live site: https://its-all-gravie.justenough.software/
+* Overview
+  This repo is my response to the prompt posed in [[https://github.com/gravieinc/gravie-developer-test][this repo]] by Gravie Inc. In this readme I will
+  cover the following topics:
+  - Installation
+  - Development Process
+  - Challenging parts of the process
+  - High-level architectural choices
+  - Future work
+* Installation
+  Before I get into the =what= and =why= of the higher-level choices I made, I'm going to cover how
+  to get a local development version up and running, in the event you want to see it in action right
+  away.
+** Dependencies
+   This project relies on at least NodeJS ~v6.0.0+~ (because Shadow CLJS requires that), though I used
+   ~v20.5.1~, and a Java SDK (again because Shadow CLJS requires it), at least version ~11~, though I
+   used ~OpenJDK 20.0.1~.
+
+   How you install each of those will be dependent upon your OS and particular setup, but likely
+   your OS' package manager will have a usable version available.
+** Running it locally
+   There are two parts to this app (described in more detail in later sections), and they are Shadow
+   CLJS and Wrangler. Shadow handles compiling the CLJS files into JS files suitable for the
+   browser, and Wrangler handles being our backend.
+
+   For Shadow CLJS, you can either start it from your editor using whatever ClojureScript editor
+   integration you've got, or you can use an ~npm~ script to start the server. If you use Emacs, and
+   have installed Cider, you can likely use ~cider-jack-in-cljs~ to start the Shadow server and
+   connect to it.
+
+   Both Shadow and Wrangler start long running processes, so, if starting both with ~npm~, run the
+   following commands in two separate terminals:
+   - Shadow CLJS :: ~npm run watch~
+   - Wrangler :: ~npm run local-dev~
+
+   Then visit the URL that Wrangler gives you, likely ~http://127.0.0.1:8788/~. Depending on whether
+   Shadow has finished compiling the CLJS files or not you might have a short delay, but soon enough
+   you'll be staring at the site running locally!
+** Seeing it live from a different machine
+   If you don't want to do all of that, but /do/ want to see the app live, you can go to
+   https://its-all-gravie.justenough.software/, which, assuming it's still running by the time you
+   come across this README, is a site running on Cloudflare's Pages technology.
