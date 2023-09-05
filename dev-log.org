@@ -335,6 +335,8 @@
 ** TODO Pagination
 ** TODO Handling search errors
 ** TODO Progress-spinners while waiting for search results to come back.
+** TODO Tests
+** TODO Infrastructure as Code
 * (Previously) Outstanding bugs
 ** Errant page reloads
   Sometimes -- seemingly on first load of the page -- navigation events don't get suppressed after
