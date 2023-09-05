@@ -61,6 +61,9 @@ Live site: https://its-all-gravie.justenough.software/
     important goal for this project is that it get me a job at Gravie, or at the very least progress
     me to the next stage of the interview process.
 
+    One piece of context to add up front is that Gravie is aware that the majority of my
+    professional experience is in the backend, and primarily (though not exclusively) in Clojure.
+
     With that in mind, here are some parts of the job posting that struck me as both relevant, and
     also something that can be shown in a solo sample project.
     #+begin_quote
@@ -216,6 +219,7 @@ Live site: https://its-all-gravie.justenough.software/
     So, as a list, here's the context influencing all decisions for this project:
     - The core goal of the project is to impress the folks at Gravie well enough to move me to the
       next phase of the interview process
+    - Gravie knows that the majority of my experience is on the backend
     - Show some kind of continuous deployment functionality
     - Demonstrate authenticity, curiosity, creativity, empathy, and outcome orientation
     - Show an eagerness to learn things
