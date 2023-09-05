@@ -54,3 +54,187 @@ Live site: https://its-all-gravie.justenough.software/
 
   I won't promise that this will be an exhaustive review of all of the decisions made, but it should
   cover at least the foundational ones.
+** Project Context
+*** It's for an interview
+    The first, and perhaps most important, piece of context is that I created this project as part of
+    the interview process for a Senior Software Engineer position at Gravie Inc., and thus the most
+    important goal for this project is that it get me a job at Gravie, or at the very least progress
+    me to the next stage of the interview process.
+
+    With that in mind, here are some parts of the job posting that struck me as both relevant, and
+    also something that can be shown in a solo sample project.
+    #+begin_quote
+    You will:
+    - Work towards a goal of continuous deployments. We currently deliver changes within two-week
+      iterations culminating in a release, but understand the value of more frequent continuous
+      delivery, and are adapting our tools and processes to support deployments as soon as changes
+      are ready
+    - Work on a major ongoing architecture overhaul that affects all services, infrastructure, and
+      supporting processes
+    - Manage the production operations of the services that your team owns, and incorporate changes
+      into the current development to improve operations
+    - Demonstrate commitment to our core competencies of being authentic, curious, creative,
+      empathetic and outcome oriented
+    #+end_quote
+    From this I'll pull the following goals/bonus points to add to the project context:
+    - Show some kind of continuous deployment functionality
+    - Demonstrate authenticity, curiosity, creativity, empathy, and outcome orientation
+
+    #+begin_quote
+    You bring:
+    - Solid programming background and a passion for writing code. You are eager to learn more and
+      enjoy providing and receiving critical feedback
+    - Advanced programming experience in at least a few of the following programming languages:
+      Clojure/ClojureScript, Groovy, Python, Java, JavaScript, Elixir, Kotlin
+    - Knowledge and experience with different programming paradigms such as functional programming,
+      object oriented, and declarative programming
+    - Experience with Clojure/ClojureScript, Groovy/Grails and JavaScript frameworks such as React,
+      Ember, Vue.js, or AngularJS
+    - Solid knowledge of key value stores, SQL, and relational databases; preferably MySQL
+    - Have a great understanding of the value of automated tests, and ability to implement them
+      across the whole stack
+    - Solid understanding of working in Linux shells
+    - Ability to collaborate with designers, product owners, and other cross-functional team members
+    - Experience working across the full stack, from user experience, to API design, to
+      infrastructure
+    - Demonstrate commitment to our core competencies of being authentic, curious, creative,
+      empathetic and outcome oriented.
+    #+end_quote
+    From this I'll pull the following as goals for the project:
+    - Show an eagerness to learn things
+    - Advanced programming experience in CLJ/CLJS/JS
+    - Knowledge and experience with different programming paradigms
+    - Experience with CLJ/CLJS and React
+
+    I love automated tests (and am curious about writing frontend tests with CLJS), but writing
+    tests is going on the =future work= list, for reasons I'll explain in a later section.
+
+    All of the collaboration elements -- providing/receiving critical feedback, collaborating
+    cross-functional team members, demonstrating empathy -- above are hard (impossible?) to
+    demonstrate in a solo project, though I love doing those things (and secretly/not-so-secretly
+    wish part of the project involved working with other cross-functional team members).
+
+    #+begin_quote
+    Extra credit:
+    - Experience with Docker and containerized environments
+    - Experience with Serverless technologies and AWS Lambda
+    - Experience with client side unidirectional data flow patterns
+    - Knowledge of building out pipelines using infrastructure-as-code tools such as AWS CDK
+    #+end_quote
+
+    From this I'll pull the following as goals for the project:
+    - Demonstrate experience with serverless technologies
+    - Demonstrate experience with client side unidirectional data flow patterns
+
+    I wanted to leverage Cloudflare's Pages technology for the static assets, and the Pages
+    Functions functionality for the backend serverless code, so I'm not going to touch on containers
+    or AWS Lambda in this project, though it would be fairly straightforward to add both.
+
+    I also am not going to touch on infrastructure as code, even though setting up, say, terraform
+    for cloudflare isn't that difficult, it tends to take a bit of time, and I'm not confident it'd
+    have a sufficiently positive impact on my interview process when balanced against the time it'd
+    take to write out.
+*** The project itself
+    The second piece of context is the synopsis from [[file:original-readme.md::For this challenge you will consume the Giant Bomb API to create an application that will allow a][the original readme]]:
+    #+begin_src markdown
+      For this challenge you will consume the Giant Bomb API to create an application that will allow a
+      user to search games and "rent" them. The application should consist of at least two unique pages
+      (`search` and `checkout`). Your view should display the game thumbnail and title, and the rest is up
+      to you. You can use any language and or framework you'd like. 
+    #+end_src
+
+    From which we can add that our app must have or do the following:
+    - Have a search page
+    - Allow users to search for games using the Giant Bomb API
+    - The games displayed should show the game's thumbnail and title
+    - Have a checkout page
+    - Allow users to "rent" said games
+    - Every other decision is up to us
+    - We can use any language and framework we'd like
+
+    This is a good start for a problem description, but it's also pretty sparse, which had me
+    concerned that just building that functionality and putting little/no effort into styling or a
+    couple extra pieces of functionality would leave a bad impression.
+
+    (Sidebar: Why might it leave a bad impression, you ask? Perhaps part of the "test" of the project
+    is that building the synopsis, as stated, is actually insufficient for moving to the next round,
+    but no one would say so, and I'd be rejected even though I could have built more. I've had
+    interviews at other companies that worked like that, which was a bummer, as I could have built
+    what they wanted had they asked for it.)
+
+    As such, I reached out to the folks at Gravie who'd posed the project and asked the following
+    question:
+    #+begin_quote
+    How much is enough?
+
+    When given a somewhat open ended prompt, I can tend to over-polish it, never quite sure if the
+    prompt-as-written is enough to move on to the next stage, or if there’s secretly more being hoped
+    for. I normally work with stakeholders on projects to resolve ambiguities, but in the case of
+    interview-specific projects it’s never immediately clear on who the stakeholders would be, or how
+    much time they’d like to spend hashing out ambiguities.
+
+    So, to avoid endlessly working on this project and never actually present it, my current plan was
+    to build specifically what was asked for in the README and then check in with you both to see if
+    that was sufficient to engender confidence in moving to the next phase, or if there were specific
+    things you were hoping to see that I hadn’t covered yet. I’d like to make sure the work I’m doing
+    is giving good signal for the things you’re looking for, and this seemed like the simplest
+    approach to me.
+
+    Does that sound like a good approach for you both? I’m also open to other approaches, so I
+    welcome alternatives :)
+    #+end_quote
+
+    Gravie replied:
+    #+begin_quote
+    Keep in mind that this is just a sample of your work, it is not expected to be production ready
+    code!
+
+    Perhaps my favorite part of the project is the discussion with you about everything else that
+    would have to be done to take it further. One good approach to that is to keep a running list in
+    a README about future work as if it were to be taken all the way to production.
+
+    In short, show us your work with the intent to impress us AND to stimulate further discussion.
+    #+end_quote
+
+    From this we can add the following pieces of context:
+    - Their expectation is that this is only a sample of my work, from which I presume that having
+      some rough edges is ok
+    - Having a list of things I didn't build, or would build next, is a good signal for Gravie
+    - Whatever I build, I should build it with the intention of impressing them, and also with the
+      intention of stimulating further discussion
+
+    I'm both grateful for the response -- everyone at Gravie has been really lovely, and I'm not
+    saying that just cause they might read this 😂 -- and also I would have loved more specifics on
+    what they find impressive, as the list of possibly impressive things is likely infinite.
+
+    That said, I'd only known these folks for a 45 minute interview, and wasn't sure if seeking more
+    details about what =impressive= means to them would come across well or not. Since I couldn't be
+    sure what kind of impact that'd have on my prospects, I chose instead to build what would impress
+    me, and hope that they'd also find it impressive (and hopefully ask for anything else they wanted
+    to see).
+*** Context Summary
+    So, as a list, here's the context influencing all decisions for this project:
+    - The core goal of the project is to impress the folks at Gravie well enough to move me to the
+      next phase of the interview process
+    - Show some kind of continuous deployment functionality
+    - Demonstrate authenticity, curiosity, creativity, empathy, and outcome orientation
+    - Show an eagerness to learn things
+    - Demonstrate advanced programming experience in CLJ/CLJS/JS
+    - Demonstrate knowledge and experience with different programming paradigms
+    - Demonstrate Experience with CLJ/CLJS and React
+    - Demonstrate experience with serverless technologies
+    - Demonstrate experience with client side unidirectional data flow patterns
+    - It must use the Giant Bomb API to search for games
+    - It needs a discrete =search= page
+    - Each game displayed must show the game' thumbnail and title
+    - It needs a discrete =checkout= page
+    - It must allow users to =rent= games
+    - Every other decision is up to me
+    - I can use any language and/or framework I want
+    - Their expectation is that this is only a sample of my work, from which I presume that having
+      some rough edges is ok
+    - Having a list of things I didn't build, or would build next, is a good signal for Gravie
+    - Whatever I build, I should build it with the intention of impressing them, and also with the
+      intention of stimulating further discussion
+    - I do not actually know what they would find impressive, so I will instead aim to impress myself
+      and hope that we happen to find the same things impressive
