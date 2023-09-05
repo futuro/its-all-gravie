@@ -43,3 +43,14 @@ Live site: https://its-all-gravie.justenough.software/
    If you don't want to do all of that, but /do/ want to see the app live, you can go to
    https://its-all-gravie.justenough.software/, which, assuming it's still running by the time you
    come across this README, is a site running on Cloudflare's Pages technology.
+* High-level Design Decisions
+  With that out of the way, let's talk about the high level design decisions made for this project.
+  Here I'm using =design= in a broader sense than just deciding the look of the UI, but encompassing
+  all aspects of building this project.
+
+  Since no design happens in a vacuum, we'll start by discussing the context this project existed
+  and exists in, then tackle the various decisions made, starting at the proverbial 30,000 foot
+  view, and zooming in.
+
+  I won't promise that this will be an exhaustive review of all of the decisions made, but it should
+  cover at least the foundational ones.
