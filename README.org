@@ -225,7 +225,7 @@ Live site: https://its-all-gravie.justenough.software/
     - Show an eagerness to learn things
     - Demonstrate advanced programming experience in CLJ/CLJS/JS
     - Demonstrate knowledge and experience with different programming paradigms
-    - Demonstrate Experience with CLJ/CLJS and React
+    - Demonstrate experience with React
     - Demonstrate experience with serverless technologies
     - Demonstrate experience with client side unidirectional data flow patterns
     - It must use the Giant Bomb API to search for games
