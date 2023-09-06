@@ -349,3 +349,22 @@ Live site: https://its-all-gravie.justenough.software/
     For the styling, I'd like to leverage an existing CSS framework, with a preference for one that
     that's been proven to work well with re-frame/reagent, so I minimize the number of complexity
     traps I might fall into.
+*** Backend/Infrastructure Tech
+    Solving this decision meandered for a while, as I tried to find out of the box proxying
+    solutions that would take a request and only rewrite the protocol/host/port portions of it, then
+    forward it on. After looking into ~tinyproxy~ and ~socat~ for a bit and hitting dead ends, I
+    realized that my premise -- at the time it was =don't build a backend at all= -- was limiting my
+    understanding of solutions. A proxy that just rewrites the protocol/host/port and forwards the
+    request on/returns the response is just a backend server, and I can very easily write code to
+    take a request, take the bits it needs and hit the Giant Bomb API, returning Giant Bomb's
+    response.
+
+    Once I'd gotten past that mental hurdle, I realized that all I actually wanted to build was
+    something to handle the request, and skip all of the server-starting, http-receiving,
+    route-handling, etc-backend-stuff.
+
+    After experimenting with writing a little script to run with Node, I remembered that
+    [[https://developers.cloudflare.com/pages/][Cloudflare's Pages]] and [[https://developers.cloudflare.com/pages/platform/functions/][Pages Functions]] offering fits exactly with my goals for this project, and
+    has the added benefit of letting me publish a live version of the project. I still needed a
+    local something to act as my backend server, and luckily the local dev story with Pages is
+    really great.
