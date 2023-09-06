@@ -244,3 +244,61 @@ Live site: https://its-all-gravie.justenough.software/
       and hope that we happen to find the same things impressive
     - Taking longer on the project has a risk of diminishing how impressive Gravie finds it, so I
       need to incorporate speed of delivery into the equation when making design decisions
+** 30,000ft View
+   Now that we know the influencing forces behind the project, let's sort out some of the major
+   decisions.
+
+   First off, we know that we need to have a UI, and thus some kind of frontend, and, since Giant
+   Bomb doesn't implement CORS, we'll also need a backend since browsers will block cross-origin
+   requests to any resource that doesn't include the right CORS headers. This is inconvenient for
+   our small project -- which will never actually see production -- but very good for the world, so
+   we'll add a backend.
+
+   We've got the following data needs:
+   - We'll need an API key to make search requests to Giant Bomb.
+   - A way to store the search results so that they can be rendered to the user
+   - A way to store the games a user wants to =rent=, specifically to support a checkout page
+*** How much backend, and how much frontend?
+    The vast majority of my experience is with backend code, so it'd be reasonable to assume that
+    I'd want to lean heavily into the backend and make a sparse frontend. That, however, isn't the
+    direction I decided to go in, and here's why.
+
+    First, from my experience with consulting, and from working with PMs/Users/non-technical
+    stakeholders, I have first hand experience that a sparse or ugly UI immediately leaves a bad
+    impression that can overshadow everything else that's going on. It's the classic =sell the
+    sizzle, not the sausage= adage, and when mixed with the fact that I don't know what Gravie will
+    find impressive, I'm going to try to lean into the sizzle more.
+
+    Second, having worked so much in the backend, and knowing the limited scope of this project, I
+    know that there aren't any computational constraints -- such as fast CPU or lots of memory --
+    that would benefit from having a backend. Everything that needs to be done -- save the CORS part
+    -- can be done in just about any modern browser as well as in any backend.
+
+    Third, there's not a lot of novelty, for me, in building a backend for this project, which also
+    leads me to feel less impressed by writing one. Now, Gravie doesn't know me well, so they may
+    see whatever kind of backend I'd write -- likely something using [[https://github.com/metosin/reitit][reitit]], [[https://github.com/metosin/malli][malli]], [[http://pedestal.io/index][pedestal]], and
+    then probably mysql because Gravie uses it and it'd be good to incorporate tech they're using --
+    and would be impressed, but I can't know that with any confidence. At this point in the CLJ
+    ecosystem's lifecycle, the kind of backend this project would need is pretty bog-standard, and
+    thus I don't think it'd stand out enough, or properly give a sense for the scope of work I can
+    do.
+
+    So, given all of that, I decided to put most of the work into building the frontend, and keep
+    the backend as simple as possible. This meant, in effect, making it a simple proxy for the Giant
+    Bomb API. I'll talk more about the specific choices around building that in a later section.
+
+    Since our backend will be a simple proxy for Giant Bomb, we'll meet our data needs in whatever
+    frontend tech we choose.
+*** How much infrastructure?
+    Similar to the backend, I've done a lot of ops/devops/infrastructure work, and know that there
+    isn't, fundamentally, a lot of interesting infrastructure needed for this project. We need
+    something to serve the frontend assets, something to handle HTTP requests sent to the backend.
+    It can get a little more complicated if we want a live version of this running somewhere -- I
+    don't memorize a list of all possible combinations of infra you'd need to accomplish this
+    because it's simple enough to put all of the pieces together once you begin doing it, but it
+    includes at least DNS records, some amount of networking, and one or two somethings serving
+    assets and handling backend requests -- but a live version running somewhere isn't required for
+    this project.
+
+    It is, however, impressive to have a live version, which means I'd like to have one while
+    spending as little time and effort on infrastructure as possible.
