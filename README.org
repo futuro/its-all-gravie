@@ -242,3 +242,5 @@ Live site: https://its-all-gravie.justenough.software/
       intention of stimulating further discussion
     - I do not actually know what they would find impressive, so I will instead aim to impress myself
       and hope that we happen to find the same things impressive
+    - Taking longer on the project has a risk of diminishing how impressive Gravie finds it, so I
+      need to incorporate speed of delivery into the equation when making design decisions
