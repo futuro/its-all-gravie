@@ -302,3 +302,50 @@ Live site: https://its-all-gravie.justenough.software/
 
     It is, however, impressive to have a live version, which means I'd like to have one while
     spending as little time and effort on infrastructure as possible.
+** 10,000ft View
+   Zooming in, we now need to make choices about the major frontend and backend tech we're going to
+   use.
+*** Frontend Tech
+    Now, I've decided to put the majority of my efforts into building a frontend, but I've got very
+    little experience building frontends, which means just about every choice is a novel one, and I
+    need to be aware of, and avoid as best as possible, potential complexity traps, since the frontend
+    is a relative ocean of tech choices.
+
+    Among these potential complexity traps are:
+    - HTML :: everything's a ~div~, except when it isn't, or shouldn't be
+      - I personally really like semantic HTML, but don't know all the various element types, thus
+        why this is a complexity trap
+    - CSS :: This is important for making something look =nice=, but, from the various FE coworkers
+      I've chatted with, and the various blogs I've read, this sounds like it's an even bigger ocean
+      than HTML is
+    - JS :: Keeping the backend as a simple proxy means I'll need to leverage JS in some form. It's
+      possible that HTML/CSS/web tech has advanced enough that this isn't true anymore, but that's
+      well outside my wheelhouse, so I'm going to move forward with a JS SPA/UI framework. This also
+      includes things like the ~Fetch~ tech requiring CORS from a remote resource before it will
+      give a JSON payload back to the JS that requested it, though that's a pretty shallow trap.
+
+    Since I don't have extensive experience with frontend development, every tech choice's set of
+    potential complexity traps has, as far as I can know, roughly the same cardinality of infinity,
+    with the following exceptions:
+    - React
+    - CLJS
+    - Bootstrap/Material UI
+
+    Long, long ago, in what is now, perhaps, ancient history for the Web (2015, to be precise), I
+    worked on a project using [[https://github.com/omcljs/om/][Om.Next]] (which was a CLJS framework over React), Datascript (an
+    immutable CLJS DB), and Bootstrap (then just a CSS library, if memory serves).
+
+    I've also worked very sparingly on a project that was using CoffeeScript and Angular 1, which
+    gave me an introduction to the various JS build tooling.
+
+    From those experiences, I definitely prefer ClojureScript and it's build tooling, and I also
+    learned that, as much as possible, it's best to follow the crowd with JS libraries, as most
+    issues you run into will have readily available answers on the web already.
+
+    Lucky for me, Gravie is using [[https://github.com/day8/re-frame/][re-frame]], which is a CLJS framework (built on [[https://reagent-project.github.io/][reagent]]) for React,
+    and doubly-lucky for me, I've been really curious about re-frame for a while and was looking for
+    a reason to learn it!
+
+    For the styling, I'd like to leverage an existing CSS framework, with a preference for one that
+    that's been proven to work well with re-frame/reagent, so I minimize the number of complexity
+    traps I might fall into.
