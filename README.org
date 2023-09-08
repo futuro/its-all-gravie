@@ -399,3 +399,25 @@ Live site: https://its-all-gravie.justenough.software/
     user of the live version of the app has to put in their own API key, I figured any potential
     abuse vectors would be rendered pointless, since the user has to attach their identity to their
     requests.
+*** Styling
+    For the styling, I wanted something that looked nice, but also could work easily with re-frame,
+    and would work reliably.
+
+    I checked out [[https://re-com.day8.com.au/][re-com]], but their website had a big warning that it was only tested on Chrome, and
+    even though it /should/ work, I didn't want to risk Gravie looking at it on a browser other than
+    Chrome and it looking funky. Also, I use Firefox and, when things are breaking, I don't want to
+    have to wonder if it's because of how re-com functions in Firefox.
+
+    I then took a look at Material UI (now MUI), and attempted to use it directly as a JS
+    dependency, but hit an issue where I couldn't require the Button element's namespace because of
+    a missing ~_system.keyframes~ function deep inside MUI.
+
+    Wondering if this was because I was using the JS library incorrectly in my CLJS project, I
+    looked for a re-frame/reagent wrapper and found [[https://github.com/arttuka/reagent-material-ui][reagent-material-ui]]. I had the same issue while
+    using this library, so knew it was something with MUI itself, or with my JS dependencies. As a
+    bonus, I learned about the need for ~reagent.core/adapt-react-class~ when interacting with JS
+    React libraries, which I certainly would have stumbled on had I been able to require MUI right
+    from the start.
+
+    Eventually, after much searching and comparing my project against the reagent-material-ui
+    example project, I upgraded React to React 18 on a hunch and the issue went away.
