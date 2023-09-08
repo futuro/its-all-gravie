@@ -371,3 +371,31 @@ Live site: https://its-all-gravie.justenough.software/
 ** 1,000ft view
    Down at the 1,000ft level, we can get a bit more specific about the tech we're going to use, and
    to what end.
+*** Backend/Infrastructure
+    I had gained familiarity with the Pages and Pages Functions offerings during the early work on
+    my blog series [[https://justenough.software/tags/autoflare/][=autoflare=]], and had already sorted out how to turn a Shadow CLJS project into a
+    deployable Pages project in my [[https://justenough.software/posts/serving-up-fulcro/][Serving Up Fulcro]] post.
+
+    Unsolved, however, was whether to build the backend capability in CLJS and compile it to
+    something that Functions can use, or minimize complexity and novelty by sticking to the language
+    used in the various guides for Functions, which was JS.
+
+    While it was tempting to try to build the functionality in CLJS and compile it to a JS file --
+    I've been curious about doing that for a while now -- I decided to stick with the goal of doing
+    as little work as possible for the backend, and minimizing potential complexity pits, and went
+    with a JS file.
+
+    I was lucky and found [[https://developers.cloudflare.com/workers/examples/fetch-json/][this example]] for fetching JSON, which was precisely the functionality I
+    was looking for. Since I was specifically not trying to build a backend, and not trying to
+    demonstrate my skills with building backends, I copied that example, with attribution, into
+    ~functions/api/search.js~ and did some minimal tweaking to get it to pass requests to Giant
+    Bomb.
+
+    As part of this work, I chose to reuse the URL path and search params from the client side to
+    minimize the boilerplate I needed to write.
+
+    Were this an app I planned to expose to the world, I likely wouldn't allow clients to hit random
+    parts of the Giant Bomb API, and instead have a subset we supported. For this project, since any
+    user of the live version of the app has to put in their own API key, I figured any potential
+    abuse vectors would be rendered pointless, since the user has to attach their identity to their
+    requests.
