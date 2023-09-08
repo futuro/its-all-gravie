@@ -368,3 +368,6 @@ Live site: https://its-all-gravie.justenough.software/
     has the added benefit of letting me publish a live version of the project. I still needed a
     local something to act as my backend server, and luckily the local dev story with Pages is
     really great.
+** 1,000ft view
+   Down at the 1,000ft level, we can get a bit more specific about the tech we're going to use, and
+   to what end.
