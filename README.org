@@ -563,7 +563,22 @@ Live site: https://its-all-gravie.justenough.software/
    believing the root component isn't in view anymore.
 
    But that's just a hunch. A mystery for another day 😄.
-** TODO Fetch doesn't return JSON to JS without CORS
+** Fetch doesn't return JSON to JS without CORS
+   After I'd hooked up ~re-frame-fetch-fx~, and sorted out some of the minor issues with hitting the
+   Giant Bomb API -- f.e. Giant Bomb doesn't implement CORS on their side -- I was now getting
+   successful responses from Giant Bomb, but which had an empty payload.
+
+   Wondering if this was a client oddity, or a library oddity, I copied the request as cURL and
+   pasted it into my browser, successfully getting a JSON payload back.
+
+   I then did some searching and meandering around the web, eventually landing on the [[https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS][MDN CORS]] page,
+   and learned that, in browsers, AJAX and Fetch requests will only return a JSON payload to JS code
+   if it either satisfies the [[https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy][same-origin policy]], or is hitting a remote resource that implements
+   CORS.
+
+   I didn't know this before I started this project, and, being ignorant of this fact, had hoped to
+   only build a frontend. Learning this about browsers, however, lead me to building the leanest
+   backend I could to satisfy the same-origin policy and not worry about CORS.
 ** TODO Game card spacing the checkout page
 * TODO Future Work
 ** TODO Pagination
