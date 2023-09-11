@@ -439,3 +439,18 @@ Live site: https://its-all-gravie.justenough.software/
     routing library, but it's reasonable that a full-featured app might need that, and I wanted an
     opportunity to try building this out. It's more than the bare minimum required, but I'm glad I
     took the small amount of time to get comfortable with it.
+*** Persistence?
+    I went back and forth on whether to build in persistence, as my intuition told me that it could
+    be a rather large complexity trap. I knew that I didn't want to build in backend persistence, as
+    I'd already chosen to build as little as possible in the backend, which left frontend
+    persistence.
+
+    I eventually decided to implement frontend persistence to workaround a gnarly navigation bug I
+    had put in the =Future Work= bucket already. The [[https://day8.github.io/re-frame/External-Resources/][re-frame external resources]] page again came in
+    handy, listing two libraries ([[https://github.com/deg/re-frame-storage-fx/][re-frame-storage-fx]] and [[https://github.com/akiroz/re-frame-storage][re-frame-storage]]) that handled HTML5 Web
+    Storage, and decided on ~re-frame-storage~ because it had a built in function for building an
+    interceptor.
+
+    Were this project a real product, I may have dug a bit deeper into the underlying tech both
+    libraries are using, to assess them more thoroughly, but the scope of this project didn't
+    warrant spending that much effort.
