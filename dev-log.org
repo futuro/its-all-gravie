@@ -317,16 +317,6 @@
 
    In short, show us your work with the intent to impress us AND to stimulate further discussion.
    #+end_quote
-* TODO Architectural Choices
-  The "Why" behind the various architectural choices.
-** TODO Why copy the Pages Functions code?
-   Why that, instead of writing all that code from scratch? And if this project is meant to be a
-   reflection of our skills, how might this choice reflect on those skills?
-** TODO Why Cloudflare Pages Functions?
-   And why not a classic JVM-based Clojure backend?
-** TODO Why re-frame?
-** TODO Why no backend persistence?
-** TODO Why bidi and pushy?
 * TODO Things intentionally not built, and why
 ** TODO Backend Persistence
 ** TODO Frontend Persistence
