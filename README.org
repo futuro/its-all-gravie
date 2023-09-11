@@ -498,3 +498,6 @@ Live site: https://its-all-gravie.justenough.software/
     Honestly, I couldn't tell why one might be better or worse than the other, so I chose
     ~re-frame-10x~ because it's from the same folks making re-frame. It worked pretty well, and I'd
     like to try out ~re-frisk~ at some point, just to see what it's like.
+* TODO Tribulations
+** TODO Using CreateRoot caused subs to be deleted
+* TODO Future Work
