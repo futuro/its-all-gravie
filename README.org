@@ -501,7 +501,33 @@ Live site: https://its-all-gravie.justenough.software/
 * TODO Tribulations
   In this section I'm going to talk about some of the more confusing speed bumps I hit along the
   way. Some of these have resolutions, and some just have workarounds.
-** TODO Errant page navigation
+** Errant page navigation
+   Let's start with something that seems to have found a resolution, but vexed me for a good portion
+   of this project: errant page navigation.
+
+   See, with Bidi and Pushy, clicking a link element isn't supposed to actually cause browser
+   navigation, as that would throw away all of your transient state and be disruptive to the
+   expected SPA experience. Instead, it should run a particular function on a link match and update
+   the browser history and window location with the Google Closure ~goog.history.Html5History~
+   class.
+
+   However, something in how I'd originally set up the history handling caused, for reasons I
+   couldn't understand, /some/, but not /all/, clicks on navbar links to actually initiate browser
+   navigation.
+
+   Now originally I'd set up a function to run before Shadow loaded new code in the routes
+   namespace, which would stop the old ~history~ var's event listeners and then start the newly
+   defined ~history~ var's event listeners. The goal here was to avoid redefining the history var,
+   and thus be unable to stop the event listeners that were created, while still being able to
+   redefine the match function.
+
+   Eventually it dawned on me that, similar to how I handle records -- exactly like them, in fact,
+   since they both end in creating objects -- I can put all of the actual work into a function
+   definition that then gets referenced, or passed in, to the object definition, relying on dev-time
+   dereferencing to get whatever changed functionality I've implemented.
+
+   With that recollection in hand, I changed my ~def history~ to a ~defonce history~, dropped the
+   special function, and the nav issue went away.
 ** TODO Using React 18's CreateRoot caused re-frame subs to be deleted
 ** TODO Can't import MUI Button component
 ** TODO Fetch doesn't return JSON to JS without CORS
