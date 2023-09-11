@@ -528,8 +528,20 @@ Live site: https://its-all-gravie.justenough.software/
 
    With that recollection in hand, I changed my ~def history~ to a ~defonce history~, dropped the
    special function, and the nav issue went away.
+** Can't require MUI Button component
+   Whenever I would attempt to bring in the MUI Button component, either by requiring the JS library
+   directly, or through ~reagent-material-ui~, it would throw an error complaining that
+   ~_system.keyframes is not a function~.
+
+   Try as I might, I could not find a solution to this via searching, nor through digging through
+   the MUI codebase, but eventually I looked at the ~package.json~ for the [[https://github.com/arttuka/reagent-material-ui/blob/master/example/package.json][example project]] for
+   reagent-material-ui, and going file by file, I saw that I was using React 17 while the example
+   project was using React 18. As this was the only seemingly meaningful difference between our two
+   projects, I tried upgrading React to version 18, and the error went away.
+
+   MUI says it works with React 17, so I have no idea why this didn't originally work, but the
+   upgrade fixed it, which is good enough for me.
 ** TODO Using React 18's CreateRoot caused re-frame subs to be deleted
-** TODO Can't import MUI Button component
 ** TODO Fetch doesn't return JSON to JS without CORS
 ** TODO Game card spacing the checkout page
 * TODO Future Work
