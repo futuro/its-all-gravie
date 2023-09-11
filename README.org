@@ -470,3 +470,12 @@ Live site: https://its-all-gravie.justenough.software/
 
     Past experience has told me that doing things differently from the =preferred= way in JS-land
     tends to make your life harder, I chose to go with ~re-frame-fetch-fx~.
+*** Debugging
+    I knew I'd want something to help me understand and debug the re-frame app, and the two options
+    highlighted on the re-frame external resources page were:
+    - [[https://github.com/day8/re-frame-10x][re-frame-10x]]
+    - [[https://github.com/flexsurfer/re-frisk][re-frisk]]
+
+    Honestly, I couldn't tell why one might be better or worse than the other, so I chose
+    ~re-frame-10x~ because it's from the same folks making re-frame. It worked pretty well, and I'd
+    like to try out ~re-frisk~ at some point, just to see what it's like.
