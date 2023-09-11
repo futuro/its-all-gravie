@@ -499,10 +499,18 @@ Live site: https://its-all-gravie.justenough.software/
     ~re-frame-10x~ because it's from the same folks making re-frame. It worked pretty well, and I'd
     like to try out ~re-frisk~ at some point, just to see what it's like.
 * TODO Tribulations
-** TODO Using CreateRoot caused subs to be deleted
+  In this section I'm going to talk about some of the more confusing speed bumps I hit along the
+  way. Some of these have resolutions, and some just have workarounds.
+** TODO Errant page navigation
+** TODO Using React 18's CreateRoot caused re-frame subs to be deleted
+** TODO Can't import MUI Button component
+** TODO Fetch doesn't return JSON to JS without CORS
+** TODO Game card spacing the checkout page
 * TODO Future Work
 ** TODO Pagination
 ** TODO Handling search errors
 ** TODO Progress-spinners while waiting for search results to come back.
 ** TODO Tests
 ** TODO Infrastructure as Code
+** TODO Backend persistence
+** TODO Users
