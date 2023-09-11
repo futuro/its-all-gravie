@@ -43,6 +43,25 @@ Live site: https://its-all-gravie.justenough.software/
    If you don't want to do all of that, but /do/ want to see the app live, you can go to
    https://its-all-gravie.justenough.software/, which, assuming it's still running by the time you
    come across this README, is a site running on Cloudflare's Pages technology.
+* Triumphs
+  This repo, and this doc, are meant to impress the folks at Gravie, and to move me forward in their
+  interview process, so let's put some triumphs right up front!
+  - I learned re-frame from scratch in about a day.
+  - I learned just enough HTML/CSS/JS to adapt existing web tech, without getting caught in any
+    serious complexity traps.
+  - I debugged some pretty gnarly issues in tech I was largely unfamiliar with, avoiding
+    major delays in getting the project out the door.
+  - I built all of this over about a week and a half, part time, with very little pre-existing
+    knowledge or experience with any of the tech involved.
+  - I had fun!
+
+  Perhaps I should try to hype up more of the technical aspects of that list, or try to pull out
+  more of what I accomplished to make it flashier, but, honestly, I feel like the greatest triumph
+  is that I had fun. The interview process is often a harrowing one, where you need to be
+  technically competent as well as good at selling your background and skills to people you've never
+  met before, and about whom you know almost nothing about what they're truly looking for. It can be
+  nerve wracking, and the fact that I had fun, and got to learn about and use some tech I've been
+  curious about for a while, feels like a true triumph to me.
 * High-level Design Decisions
   With that out of the way, let's talk about the high level design decisions made for this project.
   Here I'm using =design= in a broader sense than just deciding the look of the UI, but encompassing
