@@ -5,11 +5,11 @@ Live site: https://its-all-gravie.justenough.software/
 * Overview
   This repo is my response to the prompt posed in [[https://github.com/gravieinc/gravie-developer-test][this repo]] by Gravie Inc. In this readme I will
   cover the following topics:
-  - Installation
-  - Development Process
-  - Challenging parts of the process
-  - High-level architectural choices
-  - Future work
+  - [[*Installation][Installation]]
+  - [[*Triumphs][Triumphs]]
+  - [[*High-level Design Decisions][High-level Design Decisions]]
+  - [[*Tribulations][Tribulations]]
+  - [[*Future Work][Future work]]
 * Installation
   Before I get into the =what= and =why= of the higher-level choices I made, I'm going to cover how
   to get a local development version up and running, in the event you want to see it in action right
