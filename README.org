@@ -541,7 +541,28 @@ Live site: https://its-all-gravie.justenough.software/
 
    MUI says it works with React 17, so I have no idea why this didn't originally work, but the
    upgrade fixed it, which is good enough for me.
-** TODO Using React 18's CreateRoot caused re-frame subs to be deleted
+** Using React 18's CreateRoot caused re-frame subs to be deleted
+   Once I started using React 18, it started complaining in the dev console that ~ReactDOM.render~
+   wasn't supported anymore and I should [[https://react.dev/blog/2022/03/08/react-18-upgrade-guide#updates-to-client-rendering-apis][switch to createroot]].
+
+   Since deviating from the =happy path= means you're more likely to run into bad times in the JS
+   world, I decided to see if reagent, and thus re-frame, supported the new ~CreateRoot~ yet.
+
+   This initially went well, until I started hitting some navigation bugs where clicking a nav link
+   wouldn't update the page. After looking in the ~re-frame-10x~ UI, I saw that the history event
+   was firing properly, which meant the subscription in the root component must have been busted.
+
+   I then looked at all of the events around the time that the issue happened, and did indeed see
+   that the subscription for which page to display was indeed getting deleted.
+
+   Since this behavior only started after I'd switched over to using ~CreateRoot~, I suspected that
+   was the cause, and reverted it. This resolved the issue, though I still don't know why.
+
+   I'm assuming that whatever machinery re-frame uses to keep track of which subscriptions are still
+   in view hasn't been upgraded to work with the new ~CreateRoot~ functionality, and it's mistakenly
+   believing the root component isn't in view anymore.
+
+   But that's just a hunch. A mystery for another day 😄.
 ** TODO Fetch doesn't return JSON to JS without CORS
 ** TODO Game card spacing the checkout page
 * TODO Future Work
