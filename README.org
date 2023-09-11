@@ -498,7 +498,7 @@ Live site: https://its-all-gravie.justenough.software/
     Honestly, I couldn't tell why one might be better or worse than the other, so I chose
     ~re-frame-10x~ because it's from the same folks making re-frame. It worked pretty well, and I'd
     like to try out ~re-frisk~ at some point, just to see what it's like.
-* TODO Tribulations
+* Tribulations
   In this section I'm going to talk about some of the more confusing speed bumps I hit along the
   way. Some of these have resolutions, and some just have workarounds.
 ** Errant page navigation
@@ -579,7 +579,30 @@ Live site: https://its-all-gravie.justenough.software/
    I didn't know this before I started this project, and, being ignorant of this fact, had hoped to
    only build a frontend. Learning this about browsers, however, lead me to building the leanest
    backend I could to satisfy the same-origin policy and not worry about CORS.
-** TODO Game card spacing the checkout page
+** Game card spacing on the checkout page
+   After I'd built the home page, sans-borrowed games, I built the search page, displaying returned
+   games with a MUI Grid2 and MUI Cards. These didn't look great, but they didn't look terrible, and
+   that was the only bar we had to hurdle, so I was glad with them.
+
+   Next I went to build the checkout page, and, though I'd thought about various checkout UX flows,
+   I realized that having a fancy checkout page wasn't the point, and opted to display just the
+   games in the cart with the same components as the search page. This didn't work out precisely as
+   planned, as the cards in the grid were /way/ too thin, while they were an alright width on the
+   search page.
+
+   After comparing the search and checkout page components, and trying to make them as similar as
+   possible in hopes that I'd stumbled on something in the search page which I'd missed in the
+   checkout page, I came up blank.
+
+   After reviewing this [[https://css-tricks.com/snippets/css/a-guide-to-flexbox/][lovely guide]] on Flexbox from CSS-Tricks multiple times, and messing around
+   with the styles in Firefox's dev console, I learned that ~flexGrow  1~ on the grid and cards lead
+   to the checkout page cards looking ok, and the search page cards weren't adversely affected.
+
+   The one downside was that, on the home page, if you only borrow one game, it's card is *HUGE*.
+
+   Since =demonstrate expert abilities with CSS= wasn't a goal for the project, I left it at that,
+   but learned that you can't really get away without learning CSS if you want to build web apps,
+   even when leveraging a CSS/Component library.
 * TODO Future Work
 ** TODO Pagination
 ** TODO Handling search errors
