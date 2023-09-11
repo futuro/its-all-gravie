@@ -604,10 +604,37 @@ Live site: https://its-all-gravie.justenough.software/
    but learned that you can't really get away without learning CSS if you want to build web apps,
    even when leveraging a CSS/Component library.
 * TODO Future Work
-** TODO Pagination
-** TODO Handling search errors
-** TODO Progress-spinners while waiting for search results to come back.
-** TODO Tests
-** TODO Infrastructure as Code
-** TODO Backend persistence
-** TODO Users
+  This is a non-exhaustive list of things I'd build next, were this a real product.
+
+  Unless otherwise specified, the reason I didn't build these things is the same for all of them:
+  they didn't strike me as being strictly necessary for the project, nor sufficiently different from
+  everything else that I was building to be demonstrative of my skills in a way that the other code
+  wasn't. Thus they didn't seem worth building up front.
+** Pagination
+   The Giant Bomb API returns paginated results, and so, were we to turn this into a real product,
+   we'd need to support pagination.
+** Handling search errors
+   We don't communicate search or network errors in any user facing manner, and that'd need to
+   change if we were to turn this into an actual product, since silent failures tend to destroy the
+   user experience.
+** Progress-spinners while waiting for search results to come back.
+   It's important to communicate to your users that something is happening if they can't see it, and
+   progress spinners, or some other indicator that the search results are still pending, is how I'd
+   communicate that to users.
+** Tests
+   Aside from the general boon that automatic tests give to your confidence around the safety of
+   changes, frontend tests is one of the areas that I have less experience in, and would like to
+   get experience in. I've had a lot of experience manually testing frontend changes, or backend
+   changes that impact the frontend, and I'd love to learn how to automate away that tedium.
+** Infrastructure as Code
+   Hand-rolling your infrastructure introduces delays, mistakes, and risk, so I would incorporate
+   Terraform for managing the infrastructure as code.
+** Backend persistence
+   An app like this would need some kind of user-agnostic persistence for things like authz,
+   preferences, tracking of borrowed and returned games, and so on, which would live in the backend.
+
+   Exactly what I'd use would depend a lot on expected use cases, but my first thought is to look at
+   Cloudflare's Durable Objects and their Worker KV offerings.
+** A Domain Model
+   This goes along with the backend persistence; we'd want to have a model for the various kinds of
+   things in our product domain.
