@@ -454,3 +454,19 @@ Live site: https://its-all-gravie.justenough.software/
     Were this project a real product, I may have dug a bit deeper into the underlying tech both
     libraries are using, to assess them more thoroughly, but the scope of this project didn't
     warrant spending that much effort.
+*** HTTP Requests
+    Returning to our friend, [[https://day8.github.io/re-frame/External-Resources/][re-frame's external resources page]], we see two libraries for making
+    HTTP requests:
+    - [[https://github.com/day8/re-frame-http-fx][re-frame-http-fx]] :: This uses AJAX to make the requests
+    - [[https://github.com/superstructor/re-frame-fetch-fx][re-frame-fetch-fx]] :: This uses the JS Fetch standard to make requests
+
+    There was no appreciable difference I could see between these two, though I didn't have enough
+    knowledge of the state of the art for making HTTP requests in the web space, so I search
+    =should I use js Fetch or xhrio= on the web and found this [[https://stackoverflow.com/a/52261205][stackoverflow answer]] which said:
+    #+begin_quote
+    fetch is newer and built around Promises, which are now the prefered way to do asynchronous
+    operations in JavaScript
+    #+end_quote
+
+    Past experience has told me that doing things differently from the =preferred= way in JS-land
+    tends to make your life harder, I chose to go with ~re-frame-fetch-fx~.
