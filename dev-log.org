@@ -317,16 +317,6 @@
 
    In short, show us your work with the intent to impress us AND to stimulate further discussion.
    #+end_quote
-* TODO Things intentionally not built, and why
-** TODO Backend Persistence
-** TODO Frontend Persistence
-   It'd be nice to persist at least some of the app state, such as the currently selected page and
-   the GB api key. That feels like a nicer user experience.
-** TODO Pagination
-** TODO Handling search errors
-** TODO Progress-spinners while waiting for search results to come back.
-** TODO Tests
-** TODO Infrastructure as Code
 * (Previously) Outstanding bugs
 ** Errant page reloads
   Sometimes -- seemingly on first load of the page -- navigation events don't get suppressed after
