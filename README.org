@@ -421,3 +421,21 @@ Live site: https://its-all-gravie.justenough.software/
 
     Eventually, after much searching and comparing my project against the reagent-material-ui
     example project, I upgraded React to React 18 on a hunch and the issue went away.
+*** Routing/history
+    I need to build two pages -- ~search~ and ~checkout~ -- and I could have done this with just a
+    ~:current-page~ db key and some case statements in the root component, but I wanted to see what
+    it'd take to get history support and linkable pages.
+
+    As part of that, I wanted my route definitions to be data -- being pure data makes them dead
+    simple to introspect, among many other benefits -- and I was already aware of ~bidi~ so I was
+    inclined to use that.
+
+    This left history manipulation as the final piece to address, and luckily the re-frame docs had
+    a link to a blog post of someone doing routing with Silk (routing) and Pushy (history). After a
+    brief review of Pushy, and how it interacts with Bidi, and I've got the routing and history
+    sorted.
+
+    As a minor aside, I'll mention that this app wasn't so complex that I needed a full-blown
+    routing library, but it's reasonable that a full-featured app might need that, and I wanted an
+    opportunity to try building this out. It's more than the bare minimum required, but I'm glad I
+    took the small amount of time to get comfortable with it.
