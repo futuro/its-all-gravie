@@ -20,13 +20,20 @@
 
  :dev-http {8280 "resources/public"}
 
- :builds {:client {:target           :browser
-                   :output-dir       "resources/public/js"
-                   :modules          {:client
-                                      {:init-fn software.justenough.itsallgravie.core/run}}
-                   :devtools         {:preloads [day8.re-frame-10x.preload
-                                                 devtools.preload]}
-                   :js-options       {:anon-fn-naming-policy :unmapped}
-                   :compiler-options {:closure-defines
-                                      {re-frame.trace.trace-enabled?        true
-                                       day8.re-frame.tracing.trace-enabled? true}}}}}
+ :builds {:client     {:target           :browser
+                       :output-dir       "resources/public/js"
+                       :modules          {:client
+                                          {:init-fn software.justenough.itsallgravie.core/run}}
+                       :devtools         {:preloads [day8.re-frame-10x.preload
+                                                     devtools.preload]}
+                       :js-options       {:anon-fn-naming-policy :unmapped}
+                       :compiler-options {:closure-defines
+                                          {re-frame.trace.trace-enabled?        true
+                                           day8.re-frame.tracing.trace-enabled? true}}}
+          :search-api {:target :esm
+                       :output-dir "functions/api/v2"
+
+                       :modules
+                       {:search
+                        {:exports
+                         {onRequest software.justenough.itsallgravie.backend.search/onRequest}}}}}}
