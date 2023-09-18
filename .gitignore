@@ -4,3 +4,4 @@
 /resources/public/js
 /target/
 /.nrepl-port
+/functions/api/v2/
